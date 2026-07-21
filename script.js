@@ -1,4 +1,4 @@
-// --- Universal Heuristic Engine Logic ---
+// Universal Heuristic Engine Logic
 function analyzeText(inputText) {
     let riskScore = 0;
     let flags = [];
@@ -13,7 +13,7 @@ function analyzeText(inputText) {
         };
     }
 
-    // 1. URL Normalization & Domain Extraction
+    // 1. URL Normalization & Domain Parsing
     let hostname = text;
     try {
         if (!text.startsWith("http://") && !text.startsWith("https://")) {
@@ -25,7 +25,7 @@ function analyzeText(inputText) {
         hostname = text.split("/")[0].split("?")[0];
     }
 
-    // 2. Standard TLD Registry (ICANN aligned)
+    // 2. Standard TLD Registry Matching (ICANN)
     const validTlds = new Set([
         "com", "org", "net", "edu", "gov", "mil", "int", "info", "biz",
         "in", "gov.in", "co.in", "ac.in", "res.in", "uk", "us", "ca", "au"
@@ -43,7 +43,7 @@ function analyzeText(inputText) {
         }
     }
 
-    // 3. Structural Anomalies Checks
+    // 3. Anomaly Heuristics
     const dotCount = (hostname.match(/\./g) || []).length;
     if (dotCount >= 3) {
         riskScore += 25;
@@ -62,7 +62,7 @@ function analyzeText(inputText) {
         flags.push("Direct IP address navigation used instead of domain name.");
     }
 
-    // 4. Social Engineering & Phishing Keyword Triggers
+    // 4. Social Engineering Triggers
     const urgentActionTriggers = [
         "verify", "urgent", "suspended", "immediate", "action required", 
         "unauthorized", "login", "password", "blocked", "expire", "claim", "refund", "kyc"
@@ -81,7 +81,6 @@ function analyzeText(inputText) {
         flags.push("Credential-harvesting/Panic keyword flagged.");
     }
 
-    // 5. Final Calculation
     if (riskScore > 100) riskScore = 100;
 
     let status = "Safe";
@@ -98,7 +97,7 @@ function analyzeText(inputText) {
     return { status, riskScore, flags };
 }
 
-// --- DOM Controller & UI Handlers ---
+// UI Controllers & Handlers
 document.addEventListener("DOMContentLoaded", () => {
     const analyzeBtn = document.getElementById("analyze-btn");
     const payloadInput = document.getElementById("payload-input");
@@ -116,17 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
             themeToggleBtn.innerText = isLight ? "☀️" : "🌙";
         });
     }
-
-    // Tab Switching UI Logic
-    const tabButtons = document.querySelectorAll(".tab-btn");
-    tabButtons.forEach(btn => {
-        btn.addEventListener("click", (e) => {
-            tabButtons.forEach(b => {
-                b.className = "px-3 py-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-slate-200 tab-btn";
-            });
-            e.target.className = "px-3 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-semibold tab-btn active";
-        });
-    });
 
     // Run Dynamic Analysis
     if (analyzeBtn && payloadInput) {
@@ -156,11 +144,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 flagsList.innerHTML = "";
                 analysis.flags.forEach(flag => {
                     const li = document.createElement("li");
-                    li.className = "text-xs text-slate-300 flex items-center gap-2 bg-slate-900/50 p-2.5 rounded-lg border border-slate-800";
+                    li.className = "text-xs text-slate-300 flex items-center space-x-2 bg-slate-900/50 p-2.5 rounded-lg border border-slate-800";
                     if (analysis.riskScore > 0) {
-                        li.innerHTML = `<span class="text-red-400">⚠️</span> <span class="underline decoration-red-500/80 underline-offset-4 decoration-2">${flag}</span>`;
+                        li.innerHTML = `<span class="text-red-400"><i class="fa-solid fa-triangle-exclamation"></i></span> <span class="underline decoration-red-500/80 underline-offset-4 decoration-2">${flag}</span>`;
                     } else {
-                        li.innerHTML = `<span class="text-emerald-400">✓</span> <span>${flag}</span>`;
+                        li.innerHTML = `<span class="text-emerald-400"><i class="fa-solid fa-check"></i></span> <span>${flag}</span>`;
                     }
                     flagsList.appendChild(li);
                 });

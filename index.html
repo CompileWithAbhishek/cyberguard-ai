@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" id="mainHtmlRoot" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberGuard AI – Universal Threat Inspector</title>
+    <title>CyberGuard AI | Phishing & Threat Sandbox</title>
     
-    <!-- External CSS & Google Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -33,96 +33,148 @@
         }
     </script>
 </head>
-<body class="text-slate-100 bg-grid-animate min-h-screen flex flex-col justify-between transition-colors duration-300">
+<body class="bg-slate-950 text-slate-100 font-sans antialiased bg-grid-animate min-h-screen flex">
 
-    <!-- Top Compact Header -->
-    <header class="w-full max-w-4xl mx-auto px-4 pt-4 flex justify-between items-center border-b border-brand-border/40 pb-3">
-        <div class="flex items-center gap-2">
-            <span class="p-2 bg-cyan-500/10 border border-cyan-500/30 rounded-lg text-cyan-400 font-bold text-sm flex items-center gap-2">
-                🛡️ CyberGuard AI
-            </span>
+    <!-- Sidebar Navigation -->
+    <aside class="w-64 fixed inset-y-0 left-0 z-50 bg-slate-950/90 backdrop-blur-md border-r border-slate-800 p-4 flex flex-col justify-between">
+        <div class="space-y-6">
+            <!-- Brand Logo -->
+            <div class="flex items-center space-x-3 text-lg font-black tracking-wider text-cyan-400 px-2">
+                <i class="fa-solid fa-shield-halved text-2xl animate-pulse text-cyan-500"></i>
+                <span>CyberGuard AI</span>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="space-y-1 text-sm font-medium">
+                <a href="index.html" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+                    <i class="fa-solid fa-terminal w-5"></i>
+                    <span>Dashboard Sandbox</span>
+                </a>
+                <a href="url.html" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-900 transition">
+                    <i class="fa-solid fa-link w-5"></i>
+                    <span>URL Inspector</span>
+                </a>
+                <a href="email.html" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-900 transition">
+                    <i class="fa-solid fa-envelope w-5"></i>
+                    <span>Email Body Check</span>
+                </a>
+                <a href="sms.html" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-900 transition">
+                    <i class="fa-solid fa-comment-sms w-5"></i>
+                    <span>SMS / Smishing</span>
+                </a>
+                <a href="password.html" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-900 transition">
+                    <i class="fa-solid fa-key w-5"></i>
+                    <span>Password Vault</span>
+                </a>
+            </nav>
         </div>
-        <div class="flex items-center gap-3">
-            <span class="text-xs font-mono bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-3 py-1 rounded-full uppercase tracking-wider font-semibold">
-                ● Secure Shield Active
-            </span>
-            <!-- Theme Toggle Button -->
-            <button id="theme-toggle" class="p-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-xs font-mono border border-slate-700 transition-all">
-                🌙
-            </button>
+
+        <!-- System Active Status Badge -->
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono space-y-2">
+            <div class="flex items-center justify-between text-emerald-400 font-semibold">
+                <span><i class="fa-solid fa-circle text-[8px] animate-ping mr-1"></i> Shield Active</span>
+                <button id="theme-toggle" class="text-slate-400 hover:text-slate-100 text-sm">🌙</button>
+            </div>
+            <p class="text-slate-500 text-[10px]">Heuristic Engine v2.0 • Zero-Server Local Isolation</p>
         </div>
-    </header>
+    </aside>
 
-    <!-- Main Container -->
-    <main class="w-full max-w-4xl mx-auto px-4 py-4 flex-grow flex flex-col justify-center">
+    <!-- Main Content Area (Offset for Sidebar) -->
+    <div class="flex-1 ml-64 flex flex-col justify-between min-h-screen">
 
-        <!-- Hero Banner -->
-        <section class="text-center mb-5">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono mb-2">
-                ⚡ Universal Sandbox Terminal v2.0
+        <!-- Top Header -->
+        <header class="h-16 border-b border-slate-800/80 px-8 flex items-center justify-between bg-slate-950/60 backdrop-blur-md sticky top-0 z-40">
+            <div class="flex items-center space-x-2 text-xs font-mono text-slate-400">
+                <span class="text-cyan-400">root@cyberguard</span>:<span>~/sandbox</span>$ <span class="animate-pulse">_</span>
             </div>
-            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-2">
-                Analyze <span class="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Suspicious Payloads</span>
-            </h1>
-            <p class="text-slate-400 text-xs md:text-sm max-w-xl mx-auto leading-relaxed">
-                Client-side heuristic detection engine for domain spoofing, typosquatting, phishing templates, and malicious payload strings.
-            </p>
-        </section>
-
-        <!-- Threat Inspector Sandbox Card -->
-        <section class="cyber-glass rounded-2xl p-4 md:p-6 shadow-2xl mb-5">
-            
-            <!-- Category Tabs -->
-            <div class="flex gap-2 mb-4 border-b border-brand-border pb-3 text-xs font-mono">
-                <button class="px-3 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-semibold tab-btn active" data-tab="url">💬 URL / SMS</button>
-                <button class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-slate-200 tab-btn" data-tab="email">📧 EMAIL BODY</button>
-                <button class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-slate-200 tab-btn" data-tab="qr">🏁 QR CONTENT</button>
+            <div class="flex items-center space-x-4">
+                <span class="text-xs font-mono bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 px-3 py-1 rounded-full uppercase">
+                    Client Isolation Mode
+                </span>
             </div>
+        </header>
 
-            <!-- Input Area -->
-            <div class="mb-4">
-                <label for="payload-input" class="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">Payload Raw Text / URL Input</label>
-                <textarea id="payload-input" rows="3" class="w-full bg-slate-950/80 border border-brand-border rounded-xl p-3 text-sm font-mono text-cyan-300 focus:outline-none focus:border-cyan-500 transition-all placeholder:text-slate-600 resize-none" placeholder="Paste link, URL (e.g. pgportal.govv.in), SMS, or suspicious email text..."></textarea>
-            </div>
+        <!-- Main Body Area -->
+        <main class="p-6 md:p-8 max-w-5xl mx-auto w-full space-y-6">
 
-            <button id="analyze-btn" class="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-extrabold rounded-xl transition-all glow-cyan text-sm tracking-wide uppercase flex items-center justify-center gap-2">
-                🔍 Initialize Analysis Check
-            </button>
-        </section>
-
-        <!-- Dynamic Analysis Results Card -->
-        <section class="cyber-glass rounded-2xl p-4 md:p-6 shadow-2xl">
-            <div class="flex justify-between items-center mb-4 border-b border-brand-border pb-3">
-                <div>
-                    <span class="text-xs font-mono text-slate-400 uppercase">Threat Status:</span>
-                    <h3 id="result-status" class="text-xl font-extrabold text-emerald-400 mt-0.5">Safe</h3>
+            <!-- Hero Section -->
+            <section class="text-center space-y-2">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono">
+                    <i class="fa-solid fa-bolt"></i> <span>Universal Threat Inspection Engine</span>
                 </div>
-                <div class="text-right">
-                    <span class="text-xs font-mono text-slate-400 uppercase">Risk Index</span>
-                    <div id="result-score" class="text-2xl font-black font-mono text-cyan-400">0%</div>
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">
+                    Analyze <span class="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Suspicious Payloads</span>
+                </h1>
+                <p class="text-slate-400 text-xs md:text-sm max-w-xl mx-auto">
+                    Client-side heuristic detection engine for domain spoofing, typosquatting, phishing templates, and malicious payload strings.
+                </p>
+            </section>
+
+            <!-- Main Interactive Card -->
+            <section class="cyber-glass rounded-2xl p-6 shadow-2xl">
+                <!-- Inspector Tabs -->
+                <div class="flex space-x-2 mb-4 border-b border-slate-800 pb-3 text-xs font-mono">
+                    <button class="px-3 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-semibold tab-btn"><i class="fa-solid fa-link mr-1"></i> URL / SMS</button>
+                    <button class="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-slate-200 tab-btn"><i class="fa-solid fa-envelope mr-1"></i> EMAIL BODY</button>
+                    <button class="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-slate-200 tab-btn"><i class="fa-solid fa-qrcode mr-1"></i> QR CONTENT</button>
                 </div>
-            </div>
 
-            <!-- Findings List -->
-            <div class="space-y-2">
-                <div class="text-xs font-mono text-slate-400 uppercase tracking-wider flex justify-between">
-                    <span>Matches & Heuristic Logs:</span>
-                    <span id="log-time" class="text-slate-500">Log Time: --:--:--</span>
+                <!-- Input Box -->
+                <div class="space-y-2 mb-4">
+                    <label for="payload-input" class="block text-xs font-mono text-slate-400 uppercase tracking-wider">Payload Raw Text / URL Input</label>
+                    <textarea id="payload-input" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm font-mono text-cyan-300 focus:outline-none focus:border-cyan-500 transition placeholder:text-slate-600 resize-none" placeholder="Paste link, URL (e.g. pgportal.govv.in), SMS, or suspicious email text..."></textarea>
                 </div>
-                <ul id="flags-list" class="space-y-2 pt-1">
-                    <li class="text-xs text-slate-400 flex items-center gap-2 bg-slate-900/50 p-2.5 rounded-lg border border-slate-800">
-                        <span class="text-emerald-400">✓</span> <span>No structural anomalies or malicious indicators detected.</span>
-                    </li>
-                </ul>
+
+                <button id="analyze-btn" class="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-extrabold rounded-xl transition glow-cyan text-sm tracking-wide uppercase flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span>Initialize Analysis Check</span>
+                </button>
+            </section>
+
+            <!-- Result Card -->
+            <section class="cyber-glass rounded-2xl p-6 shadow-2xl space-y-4">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                    <div>
+                        <span class="text-xs font-mono text-slate-400 uppercase">Threat Status</span>
+                        <h3 id="result-status" class="text-xl font-extrabold text-emerald-400 mt-0.5">Safe</h3>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xs font-mono text-slate-400 uppercase">Risk Index</span>
+                        <div id="result-score" class="text-2xl font-black font-mono text-cyan-400">0%</div>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <div class="text-xs font-mono text-slate-400 uppercase tracking-wider flex justify-between">
+                        <span>Matches & Heuristic Logs</span>
+                        <span id="log-time" class="text-slate-500">Log Time: --:--:--</span>
+                    </div>
+                    <ul id="flags-list" class="space-y-2">
+                        <li class="text-xs text-slate-400 flex items-center space-x-2 bg-slate-900/50 p-2.5 rounded-lg border border-slate-800">
+                            <span class="text-emerald-400"><i class="fa-solid fa-check"></i></span>
+                            <span>No structural anomalies or malicious indicators detected.</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Full Comprehensive Footer -->
+        <footer class="border-t border-slate-800/80 bg-slate-950/80 px-8 py-4 text-xs font-mono text-slate-500 flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+            <div>
+                <span>© 2026 CyberGuard AI System. Developed by </span>
+                <a href="https://github.com/CompileWithAbhishek" target="_blank" class="text-cyan-400 hover:underline font-semibold">CompileWithAbhishek</a>
             </div>
-        </section>
+            <div class="flex space-x-4">
+                <a href="url.html" class="hover:text-slate-300">URL Inspector</a>
+                <a href="email.html" class="hover:text-slate-300">Email Checker</a>
+                <a href="sms.html" class="hover:text-slate-300">SMS Engine</a>
+                <a href="password.html" class="hover:text-slate-300">Vault</a>
+            </div>
+        </footer>
 
-    </main>
-
-    <!-- Footer -->
-    <footer class="w-full text-center py-3 text-xs text-slate-600 font-mono border-t border-brand-border/30">
-        CyberGuard AI Engine • Client-Side Universal Sandbox
-    </footer>
+    </div>
 
     <script src="script.js"></script>
 </body>
