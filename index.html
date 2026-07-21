@@ -33,18 +33,16 @@
         }
     </script>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased bg-grid-animate min-h-screen flex">
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col md:flex-row">
 
-    <!-- Sidebar Navigation -->
-    <aside class="w-64 fixed inset-y-0 left-0 z-50 bg-slate-950/90 backdrop-blur-md border-r border-slate-800 p-4 flex flex-col justify-between">
+    <!-- Desktop Sidebar Navigation (Hidden on Mobile) -->
+    <aside class="hidden md:flex w-64 fixed inset-y-0 left-0 z-50 bg-slate-950/90 backdrop-blur-md border-r border-slate-800 p-4 flex-col justify-between">
         <div class="space-y-6">
-            <!-- Brand Logo -->
             <div class="flex items-center space-x-3 text-lg font-black tracking-wider text-cyan-400 px-2">
                 <i class="fa-solid fa-shield-halved text-2xl animate-pulse text-cyan-500"></i>
                 <span>CyberGuard AI</span>
             </div>
 
-            <!-- Navigation Links -->
             <nav class="space-y-1 text-sm font-medium">
                 <a href="index.html" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
                     <i class="fa-solid fa-terminal w-5"></i>
@@ -69,40 +67,49 @@
             </nav>
         </div>
 
-        <!-- System Active Status Badge -->
         <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono space-y-2">
             <div class="flex items-center justify-between text-emerald-400 font-semibold">
                 <span><i class="fa-solid fa-circle text-[8px] animate-ping mr-1"></i> Shield Active</span>
-                <button id="theme-toggle" class="text-slate-400 hover:text-slate-100 text-sm">🌙</button>
+                <button id="theme-toggle-desktop" class="text-slate-400 hover:text-slate-100 text-sm">🌙</button>
             </div>
-            <p class="text-slate-500 text-[10px]">Heuristic Engine v2.0 • Zero-Server Local Isolation</p>
+            <p class="text-slate-500 text-[10px]">Heuristic Engine v2.0 • Local Isolation</p>
         </div>
     </aside>
 
-    <!-- Main Content Area (Offset for Sidebar) -->
-    <div class="flex-1 ml-64 flex flex-col justify-between min-h-screen">
+    <!-- Mobile Top Header Bar -->
+    <header class="md:hidden border-b border-slate-800 bg-slate-950/90 backdrop-blur-md px-4 py-3 flex items-center justify-between sticky top-0 z-50">
+        <div class="flex items-center space-x-2 text-cyan-400 font-extrabold text-base tracking-wider">
+            <i class="fa-solid fa-shield-halved text-xl"></i>
+            <span>CyberGuard AI</span>
+        </div>
+        <div class="flex items-center space-x-3">
+            <button id="theme-toggle-mobile" class="text-slate-300 text-base p-1">🌙</button>
+            <span class="text-[10px] font-mono bg-cyan-500/10 text-cyan-400 px-2 py-1 rounded border border-cyan-500/30">ONLINE</span>
+        </div>
+    </header>
 
-        <!-- Top Header -->
-        <header class="h-16 border-b border-slate-800/80 px-8 flex items-center justify-between bg-slate-950/60 backdrop-blur-md sticky top-0 z-40">
+    <!-- Main Content Area (Offset on Desktop, Full Width on Mobile) -->
+    <div class="flex-1 md:ml-64 flex flex-col justify-between min-h-screen w-full">
+
+        <!-- Top Console Bar (Desktop only) -->
+        <header class="hidden md:flex h-14 border-b border-slate-800/80 px-8 items-center justify-between bg-slate-950/60 backdrop-blur-md sticky top-0 z-40">
             <div class="flex items-center space-x-2 text-xs font-mono text-slate-400">
                 <span class="text-cyan-400">root@cyberguard</span>:<span>~/sandbox</span>$ <span class="animate-pulse">_</span>
             </div>
-            <div class="flex items-center space-x-4">
-                <span class="text-xs font-mono bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 px-3 py-1 rounded-full uppercase">
-                    Client Isolation Mode
-                </span>
-            </div>
+            <span class="text-xs font-mono bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 px-3 py-1 rounded-full uppercase">
+                Client Isolation Mode
+            </span>
         </header>
 
-        <!-- Main Body Area -->
-        <main class="p-6 md:p-8 max-w-5xl mx-auto w-full space-y-6">
+        <!-- Main Workspace -->
+        <main class="p-4 md:p-8 max-w-4xl mx-auto w-full space-y-5">
 
             <!-- Hero Section -->
-            <section class="text-center space-y-2">
+            <section class="text-center space-y-2 mt-2 md:mt-0">
                 <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono">
                     <i class="fa-solid fa-bolt"></i> <span>Universal Threat Inspection Engine</span>
                 </div>
-                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">
+                <h1 class="text-2xl md:text-4xl font-extrabold tracking-tight">
                     Analyze <span class="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Suspicious Payloads</span>
                 </h1>
                 <p class="text-slate-400 text-xs md:text-sm max-w-xl mx-auto">
@@ -110,42 +117,42 @@
                 </p>
             </section>
 
-            <!-- Main Interactive Card -->
-            <section class="cyber-glass rounded-2xl p-6 shadow-2xl">
+            <!-- Main Input Card -->
+            <section class="cyber-glass rounded-2xl p-4 md:p-6 shadow-2xl">
                 <!-- Inspector Tabs -->
-                <div class="flex space-x-2 mb-4 border-b border-slate-800 pb-3 text-xs font-mono">
-                    <button class="px-3 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-semibold tab-btn"><i class="fa-solid fa-link mr-1"></i> URL / SMS</button>
-                    <button class="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-slate-200 tab-btn"><i class="fa-solid fa-envelope mr-1"></i> EMAIL BODY</button>
-                    <button class="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-slate-200 tab-btn"><i class="fa-solid fa-qrcode mr-1"></i> QR CONTENT</button>
+                <div class="flex space-x-1.5 md:space-x-2 mb-4 border-b border-slate-800 pb-3 text-xs font-mono overflow-x-auto">
+                    <button class="px-3 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-semibold whitespace-nowrap"><i class="fa-solid fa-link mr-1"></i> URL / SMS</button>
+                    <button class="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-slate-200 whitespace-nowrap"><i class="fa-solid fa-envelope mr-1"></i> EMAIL BODY</button>
+                    <button class="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-slate-200 whitespace-nowrap"><i class="fa-solid fa-qrcode mr-1"></i> QR CONTENT</button>
                 </div>
 
                 <!-- Input Box -->
                 <div class="space-y-2 mb-4">
                     <label for="payload-input" class="block text-xs font-mono text-slate-400 uppercase tracking-wider">Payload Raw Text / URL Input</label>
-                    <textarea id="payload-input" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm font-mono text-cyan-300 focus:outline-none focus:border-cyan-500 transition placeholder:text-slate-600 resize-none" placeholder="Paste link, URL (e.g. pgportal.govv.in), SMS, or suspicious email text..."></textarea>
+                    <textarea id="payload-input" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs md:text-sm font-mono text-cyan-300 focus:outline-none focus:border-cyan-500 transition placeholder:text-slate-600 resize-none" placeholder="Paste link, URL (e.g. pgportal.govv.in), SMS, or suspicious email text..."></textarea>
                 </div>
 
-                <button id="analyze-btn" class="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-extrabold rounded-xl transition glow-cyan text-sm tracking-wide uppercase flex items-center justify-center space-x-2">
+                <button id="analyze-btn" class="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-extrabold rounded-xl transition glow-cyan text-xs md:text-sm tracking-wide uppercase flex items-center justify-center space-x-2">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <span>Initialize Analysis Check</span>
                 </button>
             </section>
 
             <!-- Result Card -->
-            <section class="cyber-glass rounded-2xl p-6 shadow-2xl space-y-4">
+            <section class="cyber-glass rounded-2xl p-4 md:p-6 shadow-2xl space-y-4">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-3">
                     <div>
-                        <span class="text-xs font-mono text-slate-400 uppercase">Threat Status</span>
-                        <h3 id="result-status" class="text-xl font-extrabold text-emerald-400 mt-0.5">Safe</h3>
+                        <span class="text-[10px] md:text-xs font-mono text-slate-400 uppercase">Threat Status</span>
+                        <h3 id="result-status" class="text-lg md:text-xl font-extrabold text-emerald-400 mt-0.5">Safe</h3>
                     </div>
                     <div class="text-right">
-                        <span class="text-xs font-mono text-slate-400 uppercase">Risk Index</span>
-                        <div id="result-score" class="text-2xl font-black font-mono text-cyan-400">0%</div>
+                        <span class="text-[10px] md:text-xs font-mono text-slate-400 uppercase">Risk Index</span>
+                        <div id="result-score" class="text-xl md:text-2xl font-black font-mono text-cyan-400">0%</div>
                     </div>
                 </div>
 
                 <div class="space-y-2">
-                    <div class="text-xs font-mono text-slate-400 uppercase tracking-wider flex justify-between">
+                    <div class="text-[10px] md:text-xs font-mono text-slate-400 uppercase tracking-wider flex justify-between">
                         <span>Matches & Heuristic Logs</span>
                         <span id="log-time" class="text-slate-500">Log Time: --:--:--</span>
                     </div>
@@ -160,16 +167,16 @@
 
         </main>
 
-        <!-- Full Comprehensive Footer -->
-        <footer class="border-t border-slate-800/80 bg-slate-950/80 px-8 py-4 text-xs font-mono text-slate-500 flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+        <!-- Footer -->
+        <footer class="border-t border-slate-800 bg-slate-950/90 px-4 md:px-8 py-4 text-[11px] font-mono text-slate-500 flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0 text-center md:text-left">
             <div>
                 <span>© 2026 CyberGuard AI System. Developed by </span>
                 <a href="https://github.com/CompileWithAbhishek" target="_blank" class="text-cyan-400 hover:underline font-semibold">CompileWithAbhishek</a>
             </div>
-            <div class="flex space-x-4">
-                <a href="url.html" class="hover:text-slate-300">URL Inspector</a>
-                <a href="email.html" class="hover:text-slate-300">Email Checker</a>
-                <a href="sms.html" class="hover:text-slate-300">SMS Engine</a>
+            <div class="flex space-x-3 text-[10px] md:text-xs">
+                <a href="url.html" class="hover:text-slate-300">URL</a>
+                <a href="email.html" class="hover:text-slate-300">Email</a>
+                <a href="sms.html" class="hover:text-slate-300">SMS</a>
                 <a href="password.html" class="hover:text-slate-300">Vault</a>
             </div>
         </footer>
