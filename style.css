@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+/* Background Grid Animation */
+.bg-grid-animate {
+    background-size: 40px 40px;
+    background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Glassmorphism Card Style */
+.cyber-glass {
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(30, 41, 59, 0.8);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cyber-glass:hover {
+    border-color: rgba(6, 182, 212, 0.6) !important;
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.15), 0 10px 25px -5px rgba(0, 0, 0, 0.5) !important;
+    transform: translateY(-2px);
+}
+
+/* Donut Chart Ring Styling */
+.circle-progress-bg {
+    fill: none;
+    stroke: #1e293b;
+    stroke-width: 8;
+}
+
+.circle-progress-value {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s ease-in-out;
+}
+
+/* ☀️ Strict Light Theme Override Engine */
+.light-theme {
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
+}
+
+.light-theme main {
+    background-color: #f1f5f9 !important;
+}
+
+.light-theme aside, 
+.light-theme header, 
+.light-theme footer {
+    background-color: #ffffff !important;
+    border-color: #cbd5e1 !important;
+    color: #0f172a !important;
+}
+
+.light-theme .cyber-glass {
+    background-color: #ffffff !important;
+    border-color: #cbd5e1 !important;
+    color: #0f172a !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+}
+
+.light-theme .cyber-glass:hover {
+    border-color: #0284c7 !important;
+    box-shadow: 0 8px 24px rgba(2, 132, 199, 0.15) !important;
+}
+
+/* Fix for Dark Nested Blocks in Light Theme */
+.light-theme div[class*="bg-slate-950"],
+.light-theme div[class*="bg-slate-900"],
+.light-theme form[class*="bg-slate-950"],
+.light-theme section[class*="bg-slate-950"],
+.light-theme tr[class*="bg-slate-950"],
+.light-theme thead,
+.light-theme #quizContextArea,
+.light-theme #diagOutputArea,
+.light-theme .bg-slate-900\/40,
+.light-theme .bg-slate-950\/40 {
+    background-color: #f8fafc !important;
+    border-color: #e2e8f0 !important;
+    color: #0f172a !important;
+}
+
+.light-theme input, 
+.light-theme textarea, 
+.light-theme select {
+    background-color: #f8fafc !important;
+    color: #0f172a !important;
+    border-color: #cbd5e1 !important;
+}
+
+.light-theme footer a {
+    background-color: #f1f5f9 !important;
+    border-color: #cbd5e1 !important;
+    color: #334155 !important;
+}
+
+.light-theme footer a:hover {
+    background-color: #e2e8f0 !important;
+    color: #0284c7 !important;
+}
+
+.light-theme h1, 
+.light-theme h2, 
+.light-theme h3, 
+.light-theme h4,
+.light-theme p,
+.light-theme span,
+.light-theme label,
+.light-theme td,
+.light-theme th {
+    color: #0f172a !important;
+}
+
+.light-theme nav a {
+    color: #334155 !important;
+}
+
+.light-theme nav a:hover {
+    background-color: #f1f5f9 !important;
+    color: #0284c7 !important;
+}
+
+.light-theme .text-slate-400,
+.light-theme .text-slate-500,
+.light-theme .text-slate-600 {
+    color: #475569 !important;
+}
