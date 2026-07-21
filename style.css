@@ -1,16 +1,21 @@
 @import "tailwindcss";
 
-/* Background Grid Animation */
+/* 1. Base Setup & Background Grid */
+body {
+    background-color: #070a11;
+    font-family: 'Inter', sans-serif;
+}
+
 .bg-grid-animate {
-    background-size: 40px 40px;
+    background-size: 35px 35px;
     background-image: 
         linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
 
-/* Glassmorphism Card Style */
+/* 2. Cyber Glassmorphism Card Style */
 .cyber-glass {
-    background: rgba(15, 23, 42, 0.75);
+    background: rgba(15, 23, 42, 0.85);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(30, 41, 59, 0.8);
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -22,7 +27,17 @@
     transform: translateY(-2px);
 }
 
-/* Donut Chart Ring Styling */
+/* Glow Effect for Primary Action Elements */
+.glow-cyan {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.25);
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.glow-cyan:hover {
+    box-shadow: 0 0 25px rgba(6, 182, 212, 0.45);
+}
+
+/* 3. Donut Chart & Progress Ring Styling */
 .circle-progress-bg {
     fill: none;
     stroke: #1e293b;
@@ -36,7 +51,7 @@
     transition: stroke-dashoffset 0.5s ease-in-out;
 }
 
-/* ☀️ Strict Light Theme Override Engine */
+/* ☀️ 4. Strict Light Theme Override Engine */
 .light-theme {
     background-color: #f1f5f9 !important;
     color: #0f172a !important;

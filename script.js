@@ -1,113 +1,170 @@
+// --- Universal Heuristic Engine Logic ---
 function analyzeText(inputText) {
     let riskScore = 0;
     let flags = [];
 
-    const text = (inputText || "").toLowerCase().trim();
+    const text = inputText.toLowerCase().trim();
 
     if (!text) {
         return { 
             status: "Safe", 
             riskScore: 0, 
-            flags: ["No threat flags discovered inside target string lines."] 
+            flags: ["No payload provided for analysis."] 
         };
     }
 
-    // Isolate hostname/domain part safely
-    let domainStr = text.replace(/^(https?:\/\/)?(www\.)?/, '').split('/')[0].split('?')[0];
-
-    // Detect typosquatting in government & generic TLDs
-    const fakeGovPattern = /(govv|gov-|\.gov\.[a-z]{2,3}\.[a-z]{2}|goov|g0v)/i;
-    if (fakeGovPattern.test(domainStr) || domainStr.includes(".govv")) {
-        riskScore += 85;
-        flags.push("Detected fake/spoofed government domain pattern (Typosquatting).");
+    // 1. URL Normalization & Domain Extraction
+    let hostname = text;
+    try {
+        if (!text.startsWith("http://") && !text.startsWith("https://")) {
+            hostname = new URL("http://" + text).hostname;
+        } else {
+            hostname = new URL(text).hostname;
+        }
+    } catch (e) {
+        hostname = text.split("/")[0].split("?")[0];
     }
 
-    const repeatedTldPattern = /\.(gov|com|org|net|edu|in|co)[a-z]{1,2}$/i;
-    const exactStandardTlds = ["gov", "com", "org", "net", "edu", "in", "gov.in", "co.in"];
+    // 2. Standard TLD Registry (ICANN aligned)
+    const validTlds = new Set([
+        "com", "org", "net", "edu", "gov", "mil", "int", "info", "biz",
+        "in", "gov.in", "co.in", "ac.in", "res.in", "uk", "us", "ca", "au"
+    ]);
+
+    const domainParts = hostname.split(".");
     
-    const parts = domainStr.split('.');
-    if (parts.length >= 2) {
-        const lastPart = parts[parts.length - 1];
-        const combinedTld = parts.slice(-2).join('.');
-        
-        if (!exactStandardTlds.includes(lastPart) && !exactStandardTlds.includes(combinedTld)) {
-            if (repeatedTldPattern.test(domainStr) || lastPart.length > 3) {
-                riskScore += 80;
-                flags.push(`Suspicious/Spoofed TLD extension detected: '.${lastPart}'.`);
-            }
+    if (domainParts.length >= 2) {
+        const primaryTld = domainParts[domainParts.length - 1];
+        const doubleTld = domainParts.slice(-2).join(".");
+
+        if (!validTlds.has(primaryTld) && !validTlds.has(doubleTld)) {
+            riskScore += 80;
+            flags.push(`Spoofed/Invalid TLD extension: '.${primaryTld}' (Typosquatting Risk)`);
         }
     }
 
-    // IP Navigation Check
-    const ipPattern = /\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/;
-    if (ipPattern.test(text)) {
-        riskScore += 80;
-        flags.push("Direct IP address navigation detected instead of a registered domain name.");
+    // 3. Structural Anomalies Checks
+    const dotCount = (hostname.match(/\./g) || []).length;
+    if (dotCount >= 3) {
+        riskScore += 25;
+        flags.push(`Subdomain Stacking detected (${dotCount} dots in hostname).`);
     }
 
-    // Social engineering urgency
-    const urgentActionTriggers = ["verify", "urgent", "suspended", "login", "password", "blocked", "claim", "kyc"];
+    const hyphenCount = (hostname.match(/-/g) || []).length;
+    if (hyphenCount >= 2) {
+        riskScore += 20;
+        flags.push("High hyphen density inside domain name.");
+    }
+
+    const ipPattern = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/;
+    if (ipPattern.test(hostname)) {
+        riskScore += 85;
+        flags.push("Direct IP address navigation used instead of domain name.");
+    }
+
+    // 4. Social Engineering & Phishing Keyword Triggers
+    const urgentActionTriggers = [
+        "verify", "urgent", "suspended", "immediate", "action required", 
+        "unauthorized", "login", "password", "blocked", "expire", "claim", "refund", "kyc"
+    ];
+
     let triggerHits = 0;
     urgentActionTriggers.forEach(word => {
         if (text.includes(word)) triggerHits++;
     });
 
     if (triggerHits >= 2) {
-        riskScore += 30;
-        flags.push(`High social engineering urgency detected (${triggerHits} action keywords flagged).`);
+        riskScore += 35;
+        flags.push(`High social engineering urgency detected (${triggerHits} flagged triggers).`);
+    } else if (triggerHits === 1) {
+        riskScore += 15;
+        flags.push("Credential-harvesting/Panic keyword flagged.");
     }
 
+    // 5. Final Calculation
     if (riskScore > 100) riskScore = 100;
 
     let status = "Safe";
     if (riskScore >= 60) {
         status = "High Threat / Phishing";
     } else if (riskScore >= 25) {
-        status = "Suspicious / Caution";
+        status = "Suspicious / Caution Needed";
     }
 
     if (flags.length === 0) {
-        flags.push("No threat flags discovered inside target string lines.");
+        flags.push("No structural anomalies or malicious indicators detected.");
     }
 
     return { status, riskScore, flags };
 }
 
-// Global initialization & event binding
+// --- DOM Controller & UI Handlers ---
 document.addEventListener("DOMContentLoaded", () => {
-    // Multi-selector binding to support different HTML element IDs
-    const analyzeBtn = document.getElementById("analyze-btn") || document.querySelector("button");
-    const payloadInput = document.getElementById("payload-input") || document.querySelector("textarea") || document.querySelector("input[type='text']");
-    const resultStatus = document.getElementById("result-status") || document.querySelector(".status-text");
-    const resultScore = document.getElementById("result-score") || document.querySelector(".score-text");
-    const flagsList = document.getElementById("flags-list") || document.querySelector("ul");
+    const analyzeBtn = document.getElementById("analyze-btn");
+    const payloadInput = document.getElementById("payload-input");
+    const resultStatus = document.getElementById("result-status");
+    const resultScore = document.getElementById("result-score");
+    const flagsList = document.getElementById("flags-list");
     const logTime = document.getElementById("log-time");
+    const themeToggleBtn = document.getElementById("theme-toggle");
 
-    function runAnalysis() {
-        if (!payloadInput) return;
-        const inputData = payloadInput.value;
-        const analysis = analyzeText(inputData);
-
-        if (resultStatus) resultStatus.innerText = analysis.status;
-        if (resultScore) resultScore.innerText = `${analysis.riskScore}%`;
-
-        if (logTime) {
-            const now = new Date();
-            logTime.innerText = `Log Time: ${now.toTimeString().split(' ')[0]}`;
-        }
-
-        if (flagsList) {
-            flagsList.innerHTML = "";
-            analysis.flags.forEach(flag => {
-                const li = document.createElement("li");
-                li.className = "text-sm my-1 flex items-center gap-2 text-slate-300";
-                li.innerHTML = `<span>⚠️</span> <span class="underline decoration-red-500 decoration-2 underline-offset-4">${flag}</span>`;
-                flagsList.appendChild(li);
-            });
-        }
+    // Theme Switcher Logic
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener("click", () => {
+            document.body.classList.toggle("light-theme");
+            const isLight = document.body.classList.contains("light-theme");
+            themeToggleBtn.innerText = isLight ? "☀️" : "🌙";
+        });
     }
 
-    if (analyzeBtn) {
-        analyzeBtn.addEventListener("click", runAnalysis);
+    // Tab Switching UI Logic
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    tabButtons.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            tabButtons.forEach(b => {
+                b.className = "px-3 py-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-slate-200 tab-btn";
+            });
+            e.target.className = "px-3 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-semibold tab-btn active";
+        });
+    });
+
+    // Run Dynamic Analysis
+    if (analyzeBtn && payloadInput) {
+        analyzeBtn.addEventListener("click", () => {
+            const inputData = payloadInput.value;
+            const analysis = analyzeText(inputData);
+
+            if (resultStatus) {
+                resultStatus.innerText = analysis.status;
+                if (analysis.riskScore >= 60) {
+                    resultStatus.className = "text-xl font-extrabold text-red-500 mt-0.5";
+                } else if (analysis.riskScore >= 25) {
+                    resultStatus.className = "text-xl font-extrabold text-amber-400 mt-0.5";
+                } else {
+                    resultStatus.className = "text-xl font-extrabold text-emerald-400 mt-0.5";
+                }
+            }
+
+            if (resultScore) resultScore.innerText = `${analysis.riskScore}%`;
+
+            if (logTime) {
+                const now = new Date();
+                logTime.innerText = `Log Time: ${now.toTimeString().split(' ')[0]}`;
+            }
+
+            if (flagsList) {
+                flagsList.innerHTML = "";
+                analysis.flags.forEach(flag => {
+                    const li = document.createElement("li");
+                    li.className = "text-xs text-slate-300 flex items-center gap-2 bg-slate-900/50 p-2.5 rounded-lg border border-slate-800";
+                    if (analysis.riskScore > 0) {
+                        li.innerHTML = `<span class="text-red-400">⚠️</span> <span class="underline decoration-red-500/80 underline-offset-4 decoration-2">${flag}</span>`;
+                    } else {
+                        li.innerHTML = `<span class="text-emerald-400">✓</span> <span>${flag}</span>`;
+                    }
+                    flagsList.appendChild(li);
+                });
+            }
+        });
     }
 });
