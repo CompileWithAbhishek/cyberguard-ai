@@ -32,50 +32,50 @@
                 <div class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
                     <i class="fa-solid fa-shield-halved text-lg"></i>
                 </div>
-                <span class="text-lg font-extrabold tracking-wider text-white uppercase">CYBERGUARD</span>
+                <span class="text-lg font-extrabold tracking-wider text-white uppercase brand-title">CYBERGUARD</span>
             </div>
 
             <nav class="space-y-1.5 text-xs font-semibold uppercase tracking-wider">
-                <a href="#home" class="flex items-center space-x-3 px-3.5 py-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-bold">
+                <a href="#home" class="nav-link flex items-center space-x-3 px-3.5 py-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-bold">
                     <i class="fa-solid fa-house w-4 text-center"></i>
                     <span>HOME CENTER</span>
                 </a>
-                <a href="#scanner" class="flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-800/40 transition">
+                <a href="#scanner" class="nav-link flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-800/40 transition">
                     <i class="fa-solid fa-crosshairs w-4 text-center"></i>
                     <span>CORE SCANNER</span>
                 </a>
-                <a href="#telemetry" class="flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-800/40 transition">
+                <a href="#telemetry" class="nav-link flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-800/40 transition">
                     <i class="fa-solid fa-chart-line w-4 text-center"></i>
                     <span>TELEMETRY MATRIX</span>
                 </a>
-                <a href="#storage" class="flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-800/40 transition">
+                <a href="#storage" class="nav-link flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-800/40 transition">
                     <i class="fa-solid fa-database w-4 text-center"></i>
                     <span>STORAGE REGISTERS</span>
                 </a>
-                <a href="#tools" class="flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-800/40 transition">
+                <a href="#tools" class="nav-link flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-800/40 transition">
                     <i class="fa-solid fa-screwdriver-wrench w-4 text-center"></i>
                     <span>TOOLS SANDBOX</span>
                 </a>
-                <a href="#diagnostics" class="flex items-center space-x-3 px-3 py-3 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-800/40 transition">
+                <a href="#diagnostics" class="nav-link flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-800/40 transition">
                     <i class="fa-solid fa-stethoscope w-4 text-center"></i>
                     <span>DIAGNOSTICS & TIPS</span>
                 </a>
             </nav>
         </div>
 
-        <div class="space-y-4 pt-4 border-t border-slate-800/60">
+        <div class="space-y-4 pt-4 border-t border-slate-800/60 theme-border-divider">
             <div>
-                <label class="block text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-1.5">DISPLAY THEME</label>
+                <label class="block text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-1.5 subtext-label">DISPLAY THEME</label>
                 <select id="theme-select" class="w-full bg-[#0B1120] border border-slate-800 rounded-xl px-3 py-2 text-xs font-semibold text-slate-300 focus:outline-none cursor-pointer">
                     <option value="dark">Dark Cyber Theme</option>
                     <option value="light">Classic Light Layout</option>
                 </select>
             </div>
 
-            <div class="flex items-center space-x-3 p-2.5 rounded-xl bg-[#0B1120]/80 border border-slate-800/80">
+            <div class="user-card-block flex items-center space-x-3 p-2.5 rounded-xl bg-[#0B1120]/80 border border-slate-800/80">
                 <div class="w-8 h-8 rounded-lg bg-blue-600 font-bold text-white flex items-center justify-center text-xs">AS</div>
                 <div class="flex-1 truncate">
-                    <div class="text-xs font-bold text-white truncate">Abhishek Singh</div>
+                    <div class="text-xs font-bold text-white user-name-text truncate">Abhishek Singh</div>
                     <div class="text-[10px] font-mono text-emerald-400 flex items-center space-x-1">
                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
                         <span>Operator Active</span>
@@ -86,7 +86,7 @@
     </aside>
 
     <!-- RIGHT MAIN WORKSPACE -->
-    <div class="flex-1 lg:ml-64 flex flex-col justify-between min-h-screen">
+    <div class="flex-1 lg:ml-64 flex flex-col justify-between min-h-screen w-full">
 
         <!-- HEADER -->
         <header class="h-16 border-b border-slate-800/60 px-6 lg:px-8 flex items-center justify-between bg-[#050811]/80 backdrop-blur-md sticky top-0 z-40">
@@ -115,11 +115,11 @@
                         <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
                             <i class="fa-solid fa-bolt text-xs"></i> <span>Local Sandbox Terminal</span>
                         </div>
-                        <h1 class="text-3xl sm:text-4xl font-black tracking-tight text-white">
+                        <h1 class="text-3xl sm:text-4xl font-black tracking-tight text-white main-heading">
                             Analyze Suspicious <br>
                             <span class="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">Data Links & Parameters</span>
                         </h1>
-                        <p class="text-slate-400 text-xs sm:text-sm max-w-xl leading-relaxed">
+                        <p class="text-slate-400 text-xs sm:text-sm max-w-xl leading-relaxed desc-text">
                             Check suspicious text fields, emails templates, QR links, and strings payloads against local matching rules frameworks inside clean isolated browser sandbox blocks.
                         </p>
                     </div>
@@ -136,16 +136,16 @@
                         <i class="fa-solid fa-shield-cat"></i>
                     </div>
                     <div>
-                        <h3 class="text-base font-bold text-white">System Firewall Node</h3>
-                        <p class="text-xs text-slate-400 font-mono mt-0.5">Local storage processing registers</p>
+                        <h3 class="text-base font-bold text-white card-heading">System Firewall Node</h3>
+                        <p class="text-xs text-slate-400 font-mono mt-0.5 subtext-label">Local storage processing registers</p>
                     </div>
-                    <div class="grid grid-cols-2 gap-4 w-full pt-4 border-t border-slate-800/60 font-mono text-xs">
-                        <div class="bg-[#070C18] p-2.5 rounded-xl border border-slate-800/80">
-                            <span class="text-[10px] text-slate-500 block uppercase">ENGINE NODE</span>
+                    <div class="grid grid-cols-2 gap-4 w-full pt-4 border-t border-slate-800/60 font-mono text-xs theme-border-divider">
+                        <div class="inner-box p-2.5 rounded-xl border border-slate-800/80">
+                            <span class="text-[10px] text-slate-500 block uppercase subtext-label">ENGINE NODE</span>
                             <span class="text-emerald-400 font-bold">OPERATIONAL</span>
                         </div>
-                        <div class="bg-[#070C18] p-2.5 rounded-xl border border-slate-800/80">
-                            <span class="text-[10px] text-slate-500 block uppercase">BUILD SIGNATURE</span>
+                        <div class="inner-box p-2.5 rounded-xl border border-slate-800/80">
+                            <span class="text-[10px] text-slate-500 block uppercase subtext-label">BUILD SIGNATURE</span>
                             <span class="text-cyan-400 font-bold">v1.2.6-Vanilla</span>
                         </div>
                     </div>
@@ -155,7 +155,7 @@
             <!-- CORE SCANNER SECTION -->
             <div id="scanner" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="lg:col-span-2 cyber-glass rounded-2xl p-6 shadow-xl space-y-5">
-                    <div class="flex space-x-2 border-b border-slate-800/80 pb-3 font-mono text-xs">
+                    <div class="flex flex-wrap gap-2 border-b border-slate-800/80 pb-3 font-mono text-xs theme-border-divider">
                         <button id="tab-url" onclick="switchTab('url')" class="tab-btn px-4 py-2 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold flex items-center space-x-2">
                             <i class="fa-solid fa-link text-xs"></i> <span>URL</span>
                         </button>
@@ -171,8 +171,8 @@
                     </div>
 
                     <div class="space-y-2">
-                        <label for="payload-input" class="block text-[10px] font-mono text-slate-400 uppercase tracking-widest">PAYLOAD RAW TEXT DATA</label>
-                        <textarea id="payload-input" rows="4" class="w-full bg-[#050811] border border-slate-800 rounded-xl p-4 text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-500 transition placeholder:text-slate-600 resize-none" placeholder="Insert suspicious URL (e.g. pov.orrg.in), email, or SMS to run risk calculations..."></textarea>
+                        <label for="payload-input" class="block text-[10px] font-mono text-slate-400 uppercase tracking-widest subtext-label">PAYLOAD RAW TEXT DATA</label>
+                        <textarea id="payload-input" rows="4" class="w-full bg-[#050811] border border-slate-800 rounded-xl p-4 text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-500 transition placeholder:text-slate-600 resize-none" placeholder="Insert suspicious URL, email (e.g. abisingh@gmmail.com), or SMS payload..."></textarea>
                     </div>
 
                     <button onclick="runAnalysisCheck()" class="w-full py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black rounded-xl transition text-xs tracking-wider uppercase flex items-center justify-center space-x-2 shadow-lg shadow-cyan-500/10">
@@ -184,24 +184,24 @@
                 <div class="cyber-glass rounded-2xl p-6 shadow-xl flex flex-col justify-between">
                     <div id="output-idle" class="my-auto text-center space-y-3 py-8">
                         <div class="text-4xl text-slate-600"><i class="fa-solid fa-terminal"></i></div>
-                        <h4 class="text-sm font-bold text-slate-300">Scanner Engine Idle</h4>
-                        <p class="text-xs text-slate-500 font-mono max-w-xs mx-auto">Input target characters inside form tracking block to evaluate results telemetry charts.</p>
+                        <h4 class="text-sm font-bold text-slate-300 card-heading">Scanner Engine Idle</h4>
+                        <p class="text-xs text-slate-500 font-mono max-w-xs mx-auto subtext-label">Input target characters inside form tracking block to evaluate results telemetry charts.</p>
                     </div>
 
                     <div id="output-results" class="hidden space-y-4">
-                        <div class="flex justify-between items-center border-b border-slate-800/80 pb-3">
+                        <div class="flex justify-between items-center border-b border-slate-800/80 pb-3 theme-border-divider">
                             <div>
-                                <span class="text-[10px] font-mono text-slate-500 uppercase">THREAT INDEX</span>
+                                <span class="text-[10px] font-mono text-slate-500 uppercase subtext-label">THREAT INDEX</span>
                                 <h3 id="res-status" class="text-xl font-extrabold text-emerald-400">SAFE</h3>
                             </div>
                             <div class="text-right">
-                                <span class="text-[10px] font-mono text-slate-500 uppercase">RISK SCORE</span>
+                                <span class="text-[10px] font-mono text-slate-500 uppercase subtext-label">RISK SCORE</span>
                                 <div id="res-score" class="text-2xl font-black font-mono text-cyan-400">0%</div>
                             </div>
                         </div>
 
                         <div class="space-y-2">
-                            <span class="text-[10px] font-mono text-slate-500 uppercase block">DIAGNOSTIC LOGS</span>
+                            <span class="text-[10px] font-mono text-slate-500 uppercase block subtext-label">DIAGNOSTIC LOGS</span>
                             <ul id="res-logs" class="space-y-2 font-mono text-slate-300"></ul>
                         </div>
                     </div>
@@ -215,7 +215,7 @@
                         <div class="inline-flex items-center space-x-1.5 text-cyan-400 text-[10px] font-mono font-bold uppercase tracking-widest">
                             <i class="fa-solid fa-code-branch"></i> <span>PLATFORM HEALTH MODULE</span>
                         </div>
-                        <h3 class="text-lg font-bold text-white mt-1">Interactive Sandbox Diagnostic Controller</h3>
+                        <h3 class="text-lg font-bold text-white mt-1 card-heading">Interactive Sandbox Diagnostic Controller</h3>
                     </div>
                     <div class="flex items-center space-x-3 text-xs font-mono">
                         <button onclick="runDiagnosticTest()" class="px-4 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 font-bold transition">Run Diagnostics</button>
@@ -223,20 +223,20 @@
                 </div>
 
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
-                    <div class="bg-[#070C18] p-4 rounded-xl border border-slate-800/80">
-                        <span class="text-xs font-mono text-slate-400 block">SCANS LOGGED</span>
-                        <div id="stat-total" class="text-2xl font-black font-mono text-white mt-2">0</div>
+                    <div class="inner-box p-4 rounded-xl border border-slate-800/80">
+                        <span class="text-xs font-mono text-slate-400 block subtext-label">SCANS LOGGED</span>
+                        <div id="stat-total" class="text-2xl font-black font-mono text-white card-heading mt-2">0</div>
                     </div>
-                    <div class="bg-[#070C18] p-4 rounded-xl border border-slate-800/80">
-                        <span class="text-xs font-mono text-slate-400 block">CLEAN RECORDS</span>
+                    <div class="inner-box p-4 rounded-xl border border-slate-800/80">
+                        <span class="text-xs font-mono text-slate-400 block subtext-label">CLEAN RECORDS</span>
                         <div id="stat-clean" class="text-2xl font-black font-mono text-emerald-400 mt-2">0</div>
                     </div>
-                    <div class="bg-[#070C18] p-4 rounded-xl border border-slate-800/80">
-                        <span class="text-xs font-mono text-slate-400 block">SUSPICIOUS</span>
+                    <div class="inner-box p-4 rounded-xl border border-slate-800/80">
+                        <span class="text-xs font-mono text-slate-400 block subtext-label">SUSPICIOUS</span>
                         <div id="stat-suspicious" class="text-2xl font-black font-mono text-amber-400 mt-2">0</div>
                     </div>
-                    <div class="bg-[#070C18] p-4 rounded-xl border border-slate-800/80">
-                        <span class="text-xs font-mono text-slate-400 block">DANGEROUS</span>
+                    <div class="inner-box p-4 rounded-xl border border-slate-800/80">
+                        <span class="text-xs font-mono text-slate-400 block subtext-label">DANGEROUS</span>
                         <div id="stat-dangerous" class="text-2xl font-black font-mono text-red-400 mt-2">0</div>
                     </div>
                 </div>
@@ -245,12 +245,12 @@
             <!-- STORAGE & CACHE REGISTERS -->
             <div id="storage" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="cyber-glass rounded-2xl p-6 shadow-xl flex flex-col justify-between">
-                    <span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold block">PROPORTIONS VECTOR</span>
+                    <span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold block subtext-label">PROPORTIONS VECTOR</span>
                     <div class="my-6 flex flex-col items-center justify-center">
-                        <div class="w-36 h-36 rounded-full border-8 border-slate-800 flex items-center justify-center text-center">
+                        <div class="w-36 h-36 rounded-full border-8 border-slate-800 flex items-center justify-center text-center vector-ring">
                             <div>
-                                <span id="vector-count" class="text-2xl font-black font-mono text-white block">0</span>
-                                <span class="text-[10px] font-mono text-slate-500 uppercase">ITEMS</span>
+                                <span id="vector-count" class="text-2xl font-black font-mono text-white card-heading block">0</span>
+                                <span class="text-[10px] font-mono text-slate-500 uppercase subtext-label">ITEMS</span>
                             </div>
                         </div>
                     </div>
@@ -258,13 +258,13 @@
 
                 <div class="lg:col-span-2 cyber-glass rounded-2xl p-6 shadow-xl space-y-4">
                     <div class="flex justify-between items-center">
-                        <span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold">LOCALSTORAGE CACHE LOGS</span>
+                        <span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold subtext-label">LOCALSTORAGE CACHE LOGS</span>
                         <button onclick="wipeLogs()" class="px-3 py-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 rounded-lg text-xs font-mono font-bold transition">Wipe Data</button>
                     </div>
 
                     <div class="overflow-x-auto">
                         <table class="w-full text-left font-mono text-xs">
-                            <thead class="text-[10px] text-slate-500 uppercase border-b border-slate-800">
+                            <thead class="text-[10px] text-slate-500 uppercase border-b border-slate-800 theme-border-divider subtext-label">
                                 <tr>
                                     <th class="py-2.5">LOGGED</th>
                                     <th class="py-2.5">VECTOR</th>
@@ -282,60 +282,59 @@
             <!-- TOOLS SANDBOX & DIAGNOSTICS -->
             <div id="tools" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="cyber-glass rounded-2xl p-6 shadow-xl space-y-4">
-                    <h4 class="text-base font-bold text-white flex items-center space-x-2">
+                    <h4 class="text-base font-bold text-white card-heading flex items-center space-x-2">
                         <i class="fa-solid fa-key text-red-400"></i>
                         <span>Password Entropy Sandbox</span>
                     </h4>
                     <input type="password" id="pass-test-input" oninput="testPasswordEntropy()" placeholder="Insert test key password..." class="w-full bg-[#050811] border border-slate-800 rounded-xl p-3 text-xs font-mono text-cyan-300 focus:outline-none">
                     <div class="flex justify-between items-center text-xs font-mono">
-                        <span class="text-slate-500">Resilience Index:</span>
-                        <span id="pass-entropy-score" class="font-bold text-slate-400">0% – Awaiting Entry</span>
+                        <span class="text-slate-500 subtext-label">Resilience Index:</span>
+                        <span id="pass-entropy-score" class="font-bold text-slate-400 desc-text">0% – Awaiting Entry</span>
                     </div>
-                    <div class="w-full bg-[#050811] rounded-full h-1.5 overflow-hidden border border-slate-800">
+                    <div class="w-full bg-[#050811] rounded-full h-1.5 overflow-hidden border border-slate-800 inner-box">
                         <div id="pass-entropy-bar" class="bg-slate-700 h-1.5 rounded-full transition-all" style="width: 0%"></div>
                     </div>
                 </div>
-<!-- Knowledge Check Loop (Interactive Quiz Block) -->
-<div id="diagnostics" class="cyber-glass rounded-2xl p-6 shadow-xl space-y-4 flex flex-col justify-between">
-    <div>
-        <h4 class="text-base font-bold text-white flex items-center space-x-2">
-            <i class="fa-solid fa-graduation-cap text-cyan-400"></i>
-            <span>Knowledge Check Loop</span>
-        </h4>
-        <p class="text-xs text-slate-400 font-mono mt-0.5">Evaluate vector processing verification capabilities parameters.</p>
-    </div>
 
-    <div id="quiz-container" class="my-auto py-3 space-y-3">
-        <p id="quiz-question-text" class="text-xs text-slate-300 font-mono leading-relaxed">
-            Activate verification testing patterns logic module to test your phishing threat recognition skills.
-        </p>
+                <div id="diagnostics" class="cyber-glass rounded-2xl p-6 shadow-xl space-y-4 flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-base font-bold text-white card-heading flex items-center space-x-2">
+                            <i class="fa-solid fa-graduation-cap text-cyan-400"></i>
+                            <span>Knowledge Check Loop</span>
+                        </h4>
+                        <p class="text-xs text-slate-400 font-mono mt-0.5 subtext-label">Evaluate vector processing verification capabilities parameters.</p>
+                    </div>
 
-        <div id="quiz-options" class="hidden space-y-2 pt-1">
-            <!-- Dynamic Buttons Render Here -->
-        </div>
+                    <div id="quiz-container" class="my-auto py-3 space-y-3">
+                        <p id="quiz-question-text" class="text-xs text-slate-300 font-mono leading-relaxed desc-text">
+                            Activate verification testing patterns logic module to test your phishing threat recognition skills.
+                        </p>
 
-        <button id="quiz-start-btn" onclick="startQuizLoop()" class="w-full py-2.5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold rounded-xl text-xs font-mono transition cursor-pointer shadow-lg shadow-blue-500/10">
-            Start Evaluation Loop
-        </button>
-    </div>
+                        <div id="quiz-options" class="hidden space-y-2 pt-1"></div>
 
-    <div class="text-[10px] font-mono text-slate-500 text-right uppercase tracking-wider">CYBERGUARD VERIFICATION MODULE</div>
-</div>
+                        <button id="quiz-start-btn" onclick="startQuizLoop()" class="w-full py-2.5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold rounded-xl text-xs font-mono transition cursor-pointer shadow-lg shadow-blue-500/10">
+                            Start Evaluation Loop
+                        </button>
+                    </div>
 
-            <!-- IMPROVED ENTERPRISE FOOTER -->
-            <footer class="pt-10 pb-6 border-t border-slate-800/60 font-mono text-xs space-y-6">
+                    <div class="text-[10px] font-mono text-slate-500 text-right uppercase tracking-wider subtext-label">CYBERGUARD VERIFICATION MODULE</div>
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <footer class="pt-10 pb-6 border-t border-slate-800/60 font-mono text-xs space-y-6 theme-border-divider">
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-slate-400">
                     <div>
-                        <div class="text-white font-bold mb-2 flex items-center space-x-2">
+                        <div class="text-white font-bold mb-2 flex items-center space-x-2 brand-title">
                             <i class="fa-solid fa-shield-halved text-cyan-400"></i>
                             <span>CYBERGUARD AI</span>
                         </div>
-                        <p class="text-[11px] text-slate-500 leading-relaxed">Client-side zero-latency threat detection & phishing payload isolation sandbox.</p>
+                        <p class="text-[11px] text-slate-500 leading-relaxed subtext-label">Client-side zero-latency threat detection & phishing payload isolation sandbox.</p>
                     </div>
 
                     <div>
-                        <div class="text-white font-bold mb-2">QUICK MODULES</div>
-                        <ul class="space-y-1 text-[11px]">
+                        <div class="text-white font-bold mb-2 card-heading">QUICK MODULES</div>
+                        <ul class="space-y-1 text-[11px] subtext-label">
                             <li><a href="#scanner" class="hover:text-cyan-400 transition">Core Scanner</a></li>
                             <li><a href="#telemetry" class="hover:text-cyan-400 transition">Telemetry Matrix</a></li>
                             <li><a href="#storage" class="hover:text-cyan-400 transition">Local Storage Logs</a></li>
@@ -343,24 +342,24 @@
                     </div>
 
                     <div>
-                        <div class="text-white font-bold mb-2">DEVELOPER CONNECT</div>
+                        <div class="text-white font-bold mb-2 card-heading">DEVELOPER CONNECT</div>
                         <div class="flex space-x-3">
-                            <a href="https://github.com/CompileWithAbhishek" target="_blank" class="px-3 py-1.5 rounded-lg bg-[#0B1120] border border-slate-800 hover:text-cyan-400 transition"><i class="fa-brands fa-github mr-1"></i> GitHub</a>
-                            <a href="#" class="px-3 py-1.5 rounded-lg bg-[#0B1120] border border-slate-800 hover:text-cyan-400 transition"><i class="fa-brands fa-linkedin mr-1"></i> LinkedIn</a>
+                            <a href="https://github.com/CompileWithAbhishek" target="_blank" class="px-3 py-1.5 rounded-lg bg-[#0B1120] border border-slate-800 hover:text-cyan-400 transition inner-box"><i class="fa-brands fa-github mr-1"></i> GitHub</a>
+                            <a href="#" class="px-3 py-1.5 rounded-lg bg-[#0B1120] border border-slate-800 hover:text-cyan-400 transition inner-box"><i class="fa-brands fa-linkedin mr-1"></i> LinkedIn</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="pt-4 border-t border-slate-800/40 text-center text-slate-500 text-[11px] space-y-1">
-                    <p>Engineered & Maintained by <span class="text-white font-bold">Abhishek Singh</span></p>
-                    <p class="text-slate-600">© 2026 CyberGuard AI Infrastructure. Local Browser Isolation Architecture.</p>
+                <div class="pt-4 border-t border-slate-800/40 text-center text-slate-500 text-[11px] space-y-1 theme-border-divider">
+                    <p>Engineered & Maintained by <span class="text-white font-bold card-heading">Abhishek Singh</span></p>
+                    <p class="text-slate-600 subtext-label">© 2026 CyberGuard AI Infrastructure. Local Browser Isolation Architecture.</p>
                 </div>
             </footer>
 
         </main>
     </div>
 
-    <!-- FLOATING AI BOT BUTTON & MODAL -->
+    <!-- FLOATING AI BOT BUTTON -->
     <div class="fixed bottom-6 right-6 z-50">
         <button onclick="toggleAiChat()" class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 text-white flex items-center justify-center text-xl shadow-2xl hover:scale-105 transition cursor-pointer">
             <i class="fa-solid fa-robot"></i>
@@ -368,20 +367,20 @@
     </div>
 
     <!-- AI CHATBOT MODAL -->
-    <div id="ai-chat-modal" class="hidden fixed bottom-20 right-6 w-80 sm:w-96 bg-[#0B1120] border border-slate-800 rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col h-96">
-        <div class="bg-[#070C18] p-3 border-b border-slate-800 flex justify-between items-center">
+    <div id="ai-chat-modal" class="hidden fixed bottom-20 right-6 w-80 sm:w-96 bg-[#0B1120] border border-slate-800 rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col h-96 bot-modal-window">
+        <div class="bg-[#070C18] p-3 border-b border-slate-800 flex justify-between items-center bot-modal-header">
             <div class="flex items-center space-x-2 text-xs font-bold text-cyan-400">
                 <i class="fa-solid fa-robot"></i>
                 <span>CyberGuard Assistant</span>
             </div>
-            <button onclick="toggleAiChat()" class="text-slate-500 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            <button onclick="toggleAiChat()" class="text-slate-500 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div id="ai-chat-messages" class="flex-1 p-3 overflow-y-auto space-y-2 text-xs font-mono">
-            <div class="text-left"><span class="inline-block bg-slate-800 text-cyan-300 p-2.5 rounded-xl border border-slate-700">Hello Abhishek! I am CyberGuard AI Agent. Ask me about suspicious URLs or email flags.</span></div>
+            <div class="text-left"><span class="inline-block bg-slate-800 text-cyan-300 p-2.5 rounded-xl border border-slate-700 chat-bubble-bot">Hello Abhishek! I am CyberGuard AI Agent. Ask me about suspicious URLs, email typos, or threat flags.</span></div>
         </div>
-        <div class="p-2 bg-[#070C18] border-t border-slate-800 flex space-x-2">
+        <div class="p-2 bg-[#070C18] border-t border-slate-800 flex space-x-2 bot-modal-footer">
             <input type="text" id="ai-chat-input" placeholder="Ask AI..." class="flex-1 bg-[#050811] border border-slate-800 rounded-lg px-3 py-1.5 text-xs font-mono text-slate-200 focus:outline-none">
-            <button onclick="sendAiMessage()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg text-xs"><i class="fa-solid fa-paper-plane"></i></button>
+            <button onclick="sendAiMessage()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg text-xs cursor-pointer"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
     </div>
 

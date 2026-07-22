@@ -1,30 +1,30 @@
 @import "tailwindcss";
 
-/* 1. Base Setup & Background Grid */
+/* Core Colors & Animated Grid */
 body {
-    background-color: #070a11;
+    background-color: #050811;
     font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
     color: #f1f5f9;
 }
 
-.bg-grid-animate {
-    background-size: 35px 35px;
+.bg-cyber-grid {
+    background-size: 32px 32px;
     background-image: 
         linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
 
-/* 2. Cyber Glassmorphism Card Style */
+/* Glassmorphism Cards */
 .cyber-glass {
-    background: rgba(15, 23, 42, 0.85);
+    background: rgba(11, 17, 32, 0.85);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(30, 41, 59, 0.8);
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(22, 34, 56, 0.8);
+    transition: all 0.2s ease-in-out;
 }
 
 .cyber-glass:hover {
-    border-color: rgba(6, 182, 212, 0.6) !important;
-    box-shadow: 0 0 20px rgba(6, 182, 212, 0.15), 0 10px 25px -5px rgba(0, 0, 0, 0.5) !important;
+    border-color: rgba(0, 240, 255, 0.4) !important;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.1) !important;
     transform: translateY(-2px);
 }
 
@@ -32,7 +32,7 @@ button, a, input, select, textarea {
     cursor: pointer !important;
 }
 
-/* 3. Controlled Light Theme Override */
+/* ☀️ COMPLETE LIGHT THEME OVERRIDE ENGINE */
 .light-mode {
     background-color: #f1f5f9 !important;
     color: #0f172a !important;
@@ -45,18 +45,86 @@ button, a, input, select, textarea {
 .light-mode aside, 
 .light-mode header, 
 .light-mode footer,
-.light-mode .cyber-glass {
+.light-mode .cyber-glass,
+.light-mode .bot-modal-window {
     background-color: #ffffff !important;
     border-color: #cbd5e1 !important;
     color: #0f172a !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
 }
 
-.light-mode h1, .light-mode h2, .light-mode h3, .light-mode h4, .light-mode p, .light-mode span, .light-mode label, .light-mode td, .light-mode th {
-    color: #0f172a !important;
+.light-mode .cyber-glass:hover {
+    border-color: #0284c7 !important;
+    box-shadow: 0 8px 25px rgba(2, 132, 199, 0.15) !important;
 }
 
-.light-mode input, .light-mode textarea, .light-mode select {
+/* Nested Inner Blocks In Light Theme */
+.light-mode .inner-box,
+.light-mode .user-card-block,
+.light-mode .bot-modal-header,
+.light-mode .bot-modal-footer,
+.light-mode div[class*="bg-[#070C18]"],
+.light-mode div[class*="bg-[#050811]"],
+.light-mode div[class*="bg-[#0B1120]"] {
     background-color: #f8fafc !important;
+    border-color: #e2e8f0 !important;
     color: #0f172a !important;
+}
+
+.light-mode input, 
+.light-mode textarea, 
+.light-mode select {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    border-color: #cbd5e1 !important;
+}
+
+.light-mode input::placeholder,
+.light-mode textarea::placeholder {
+    color: #94a3b8 !important;
+}
+
+/* Typography Colors in Light Mode */
+.light-mode h1, 
+.light-mode h2, 
+.light-mode h3, 
+.light-mode h4, 
+.light-mode .main-heading,
+.light-mode .card-heading,
+.light-mode .brand-title,
+.light-mode .user-name-text {
+    color: #0f172a !important;
+}
+
+.light-mode p,
+.light-mode span,
+.light-mode label,
+.light-mode td,
+.light-mode th,
+.light-mode .desc-text,
+.light-mode .subtext-label {
+    color: #475569 !important;
+}
+
+.light-mode .nav-link {
+    color: #334155 !important;
+}
+
+.light-mode .nav-link:hover {
+    background-color: #e2e8f0 !important;
+    color: #0284c7 !important;
+}
+
+.light-mode .theme-border-divider {
+    border-color: #e2e8f0 !important;
+}
+
+.light-mode .chat-bubble-bot {
+    background-color: #e2e8f0 !important;
+    color: #0f172a !important;
+    border-color: #cbd5e1 !important;
+}
+
+.light-mode .vector-ring {
     border-color: #cbd5e1 !important;
 }

@@ -3,10 +3,10 @@ let scanLogs = JSON.parse(localStorage.getItem('cyberguard_logs') || '[]');
 let currentTab = 'url';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Theme Toggle Setup
+    // 1. Theme Toggle Controller
     const themeSelect = document.getElementById('theme-select');
     if (themeSelect) {
-        themeSelect.value = 'dark'; // Force dark default on load
+        themeSelect.value = 'dark'; // Dark default on start
         themeSelect.addEventListener('change', (e) => {
             const root = document.getElementById('mainHtmlRoot');
             if (e.target.value === 'light') {
@@ -19,20 +19,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Navigation Active State Handling
-    document.querySelectorAll('nav a').forEach(link => {
+    // 2. Nav Highlight
+    document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function () {
-            document.querySelectorAll('nav a').forEach(l => l.classList.remove('bg-cyan-500/10', 'text-cyan-400', 'border', 'border-cyan-500/20', 'font-bold'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('bg-cyan-500/10', 'text-cyan-400', 'border', 'border-cyan-500/20', 'font-bold'));
             this.classList.add('bg-cyan-500/10', 'text-cyan-400', 'border', 'border-cyan-500/20', 'font-bold');
         });
     });
 
-    // Initial Load Calls
     updateTelemetryStats();
     renderLogsTable();
 });
 
-// Tab Switcher Engine
+// Tab Switcher
 function switchTab(tab) {
     currentTab = tab;
     document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -44,7 +43,7 @@ function switchTab(tab) {
     }
 }
 
-// Detection Engine (Updated with Email Domain Typosquatting Check)
+// Full Phishing Analysis Engine
 function runAnalysisCheck() {
     const inputField = document.getElementById('payload-input');
     const rawVal = inputField ? inputField.value.trim() : '';
@@ -58,14 +57,14 @@ function runAnalysisCheck() {
     let flags = [];
     const lower = rawVal.toLowerCase();
 
-    // 1. Email Typosquatting Check (gmmail, gmai, yaho, hotmial, etc.)
+    // 1. Email Typosquatting Check (abisingh@gmmail.com, gmai.com, etc.)
     const emailTypoPattern = /@(gmmail|gmai|gmaill|yaho|yahool|hotmial|outlok|outloo)\./;
     if (emailTypoPattern.test(lower)) {
         riskScore += 85;
         flags.push("CRITICAL: Email Provider Typosquatting / Spoofed Domain Detected.");
     }
 
-    // 2. URL Typosquatting Check (.orrg, .govv, etc.)
+    // 2. URL Extension Typosquatting Check (.orrg, .govv, etc.)
     const typoPattern = /\.(orrg|govv|cm|nett|coo|infoo|xyz|top|zip|work|click)\b/;
     if (typoPattern.test(lower)) {
         riskScore += 80;
@@ -108,7 +107,7 @@ function runAnalysisCheck() {
 
     if (flags.length === 0) flags.push("No structural anomalies or malicious indicators detected.");
 
-    // Update Logs
+    // Write to Local Logs
     const newEntry = {
         id: Date.now(),
         time: new Date().toLocaleTimeString(),
@@ -122,7 +121,7 @@ function runAnalysisCheck() {
     scanLogs.unshift(newEntry);
     localStorage.setItem('cyberguard_logs', JSON.stringify(scanLogs));
 
-    // Render Results
+    // Display Output
     document.getElementById('output-idle')?.classList.add('hidden');
     const resContainer = document.getElementById('output-results');
     resContainer?.classList.remove('hidden');
@@ -150,7 +149,7 @@ function runAnalysisCheck() {
     renderLogsTable();
 }
 
-// Update Telemetry Counters
+// Counter Stats
 function updateTelemetryStats() {
     const total = scanLogs.length;
     const clean = scanLogs.filter(l => l.status === 'CLEAN').length;
@@ -164,7 +163,7 @@ function updateTelemetryStats() {
     if (document.getElementById('vector-count')) document.getElementById('vector-count').innerText = total;
 }
 
-// Render Local Storage Telemetry Table
+// Table Logs
 function renderLogsTable() {
     const filter = (document.getElementById('filter-logs')?.value || '').toLowerCase();
     const tbody = document.getElementById('logs-table-body');
@@ -208,7 +207,7 @@ function wipeLogs() {
     renderLogsTable();
 }
 
-// Password Strength Sandbox
+// Password Entropy Sandbox
 function testPasswordEntropy() {
     const input = document.getElementById('pass-test-input').value;
     const scoreText = document.getElementById('pass-entropy-score');
@@ -232,7 +231,7 @@ function testPasswordEntropy() {
     bar.className = score >= 75 ? "bg-emerald-400 h-1.5 rounded-full transition-all" : (score >= 40 ? "bg-amber-400 h-1.5 rounded-full transition-all" : "bg-red-500 h-1.5 rounded-full transition-all");
 }
 
-// Interactive Knowledge Check Loop Quiz
+// Interactive Knowledge Quiz Loop
 const quizData = [
     {
         q: "A link says 'http://login.sbi.com.secure-verify.orrg.in'. Is this official?",
@@ -274,7 +273,7 @@ function renderQuizQuestion() {
 
     if (optsContainer) {
         optsContainer.innerHTML = qData.opts.map((opt, idx) => `
-            <button onclick="handleQuizAnswer(${idx})" class="w-full text-left p-3 rounded-xl bg-[#050811] hover:bg-slate-800 border border-slate-800 text-xs font-mono text-cyan-300 transition flex items-center justify-between cursor-pointer">
+            <button onclick="handleQuizAnswer(${idx})" class="w-full text-left p-3 rounded-xl bg-[#050811] hover:bg-slate-800 border border-slate-800 text-xs font-mono text-cyan-300 transition flex items-center justify-between cursor-pointer inner-box">
                 <span>${opt}</span>
                 <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
             </button>
@@ -333,7 +332,7 @@ function sendAiMessage() {
         if (text.toLowerCase().includes('phishing')) reply = "Phishing links spoof extensions like .orrg or use raw IP addresses.";
         if (text.toLowerCase().includes('hi') || text.toLowerCase().includes('hello')) reply = "Hello Abhishek! How can I assist you with threat telemetry today?";
 
-        messages.innerHTML += `<div class="text-left"><span class="inline-block bg-slate-800 text-cyan-300 text-xs px-3 py-2 rounded-xl font-mono border border-slate-700">${reply}</span></div>`;
+        messages.innerHTML += `<div class="text-left"><span class="inline-block bg-slate-800 text-cyan-300 text-xs px-3 py-2 rounded-xl font-mono border border-slate-700 chat-bubble-bot">${reply}</span></div>`;
         messages.scrollTop = messages.scrollHeight;
     }, 500);
 }
