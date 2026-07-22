@@ -44,7 +44,7 @@ function switchTab(tab) {
     }
 }
 
-// Threat Detection Heuristics Engine
+// Detection Engine (Updated with Email Domain Typosquatting Check)
 function runAnalysisCheck() {
     const inputField = document.getElementById('payload-input');
     const rawVal = inputField ? inputField.value.trim() : '';
@@ -58,14 +58,21 @@ function runAnalysisCheck() {
     let flags = [];
     const lower = rawVal.toLowerCase();
 
-    // Typosquatting Check (.orrg, .govv, etc.)
+    // 1. Email Typosquatting Check (gmmail, gmai, yaho, hotmial, etc.)
+    const emailTypoPattern = /@(gmmail|gmai|gmaill|yaho|yahool|hotmial|outlok|outloo)\./;
+    if (emailTypoPattern.test(lower)) {
+        riskScore += 85;
+        flags.push("CRITICAL: Email Provider Typosquatting / Spoofed Domain Detected.");
+    }
+
+    // 2. URL Typosquatting Check (.orrg, .govv, etc.)
     const typoPattern = /\.(orrg|govv|cm|nett|coo|infoo|xyz|top|zip|work|click)\b/;
     if (typoPattern.test(lower)) {
         riskScore += 80;
         flags.push("CRITICAL: Typosquatting/Spoofed Domain Extension Detected.");
     }
 
-    // Subdomains & Hyphens Analysis
+    // 3. Subdomains & Hyphens
     if ((lower.match(/\./g) || []).length >= 3) {
         riskScore += 30;
         flags.push("WARNING: High Subdomain nesting depth.");
@@ -75,13 +82,13 @@ function runAnalysisCheck() {
         flags.push("SUSPICIOUS: Multiple hyphens used in domain.");
     }
 
-    // Direct IP Address Pattern Matcher
+    // 4. Raw IP Check
     if (/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(lower.replace(/http(s)?:\/\//, '').split('/')[0])) {
         riskScore += 85;
         flags.push("DANGEROUS: Direct IP hosting instead of legitimate domain.");
     }
 
-    // Urgent Social-Engineering Keywords
+    // 5. Urgent Keywords
     const urgentKeywords = ['verify', 'blocked', 'urgent', 'kyc', 'suspend', 'update-password', 'secure-login', 'bank', 'free-gift'];
     let keywordHits = 0;
     urgentKeywords.forEach(kw => {
@@ -101,7 +108,7 @@ function runAnalysisCheck() {
 
     if (flags.length === 0) flags.push("No structural anomalies or malicious indicators detected.");
 
-    // Write to Local State
+    // Update Logs
     const newEntry = {
         id: Date.now(),
         time: new Date().toLocaleTimeString(),
@@ -115,7 +122,7 @@ function runAnalysisCheck() {
     scanLogs.unshift(newEntry);
     localStorage.setItem('cyberguard_logs', JSON.stringify(scanLogs));
 
-    // Update Output Sandbox View
+    // Render Results
     document.getElementById('output-idle')?.classList.add('hidden');
     const resContainer = document.getElementById('output-results');
     resContainer?.classList.remove('hidden');
