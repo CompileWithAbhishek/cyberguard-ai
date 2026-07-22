@@ -5,12 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CyberGuard AI – Phishing & Threat Sandbox</title>
     
-    <!-- Tailwind CSS & FontAwesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-
-    <!-- External Stylesheet -->
     <link rel="stylesheet" href="style.css">
 
     <script>
@@ -19,85 +16,68 @@
             theme: {
                 extend: {
                     colors: {
-                        cyber: {
-                            bg: '#050811',
-                            card: '#0B1120',
-                            border: '#162238',
-                            hover: '#111A2E',
-                            cyan: '#00F0FF',
-                            blue: '#0066FF',
-                            purple: '#A855F7'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace']
+                        cyber: { bg: '#050811', card: '#0B1120', border: '#162238', cyan: '#00F0FF', blue: '#0066FF' }
                     }
                 }
             }
         }
     </script>
 </head>
-<body class="bg-[#050811] dark:bg-[#050811] light:bg-slate-100 text-slate-100 dark:text-slate-100 light:text-slate-800 font-sans antialiased min-h-screen flex bg-cyber-grid transition-colors duration-300">
+<body class="bg-[#050811] text-slate-100 font-sans antialiased min-h-screen flex bg-cyber-grid">
 
-    <!-- LEFT SIDEBAR -->
-    <aside class="w-64 fixed inset-y-0 left-0 z-50 bg-[#070C18]/90 dark:bg-[#070C18]/90 light:bg-white/90 backdrop-blur-xl border-r border-slate-800/80 dark:border-slate-800/80 light:border-slate-200 p-5 flex flex-col justify-between hidden lg:flex">
+    <!-- LEFT SIDEBAR NAVIGATION -->
+    <aside class="w-64 fixed inset-y-0 left-0 z-50 bg-[#070C18]/90 backdrop-blur-xl border-r border-slate-800/80 p-5 flex flex-col justify-between hidden lg:flex">
         <div class="space-y-8">
-            <!-- Brand Logo -->
             <div class="flex items-center space-x-3 px-1">
                 <div class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
                     <i class="fa-solid fa-shield-halved text-lg"></i>
                 </div>
-                <span class="text-lg font-extrabold tracking-wider text-white dark:text-white light:text-slate-900 uppercase">CYBERGUARD</span>
+                <span class="text-lg font-extrabold tracking-wider text-white uppercase">CYBERGUARD</span>
             </div>
 
-            <!-- Navigation Links -->
-            <nav class="space-y-1 text-xs font-semibold uppercase tracking-wider">
+            <nav class="space-y-1.5 text-xs font-semibold uppercase tracking-wider">
                 <a href="#home" class="flex items-center space-x-3 px-3.5 py-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-bold">
                     <i class="fa-solid fa-house w-4 text-center"></i>
                     <span>HOME CENTER</span>
                 </a>
-                <a href="#scanner" class="flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-400 hover:text-slate-100 dark:hover:text-slate-100 light:hover:text-slate-900 hover:bg-slate-800/40 transition">
+                <a href="#scanner" class="flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-800/40 transition">
                     <i class="fa-solid fa-crosshairs w-4 text-center"></i>
                     <span>CORE SCANNER</span>
                 </a>
-                <a href="#telemetry" class="flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-400 hover:text-slate-100 dark:hover:text-slate-100 light:hover:text-slate-900 hover:bg-slate-800/40 transition">
-                    <i class="fa-solid fa-chart-activity w-4 text-center"></i>
+                <a href="#telemetry" class="flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-800/40 transition">
+                    <i class="fa-solid fa-chart-line w-4 text-center"></i>
                     <span>TELEMETRY MATRIX</span>
                 </a>
-                <a href="#storage" class="flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-400 hover:text-slate-100 dark:hover:text-slate-100 light:hover:text-slate-900 hover:bg-slate-800/40 transition">
+                <a href="#storage" class="flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-800/40 transition">
                     <i class="fa-solid fa-database w-4 text-center"></i>
                     <span>STORAGE REGISTERS</span>
                 </a>
-                <a href="#tools" class="flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-400 hover:text-slate-100 dark:hover:text-slate-100 light:hover:text-slate-900 hover:bg-slate-800/40 transition">
+                <a href="#tools" class="flex items-center space-x-3 px-3.5 py-3 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-800/40 transition">
                     <i class="fa-solid fa-screwdriver-wrench w-4 text-center"></i>
                     <span>TOOLS SANDBOX</span>
                 </a>
-                <a href="#diagnostics" class="flex items-center space-x-3 px-3 py-3 rounded-xl text-slate-400 hover:text-slate-100 dark:hover:text-slate-100 light:hover:text-slate-900 hover:bg-slate-800/40 transition">
+                <a href="#diagnostics" class="flex items-center space-x-3 px-3 py-3 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-800/40 transition">
                     <i class="fa-solid fa-stethoscope w-4 text-center"></i>
                     <span>DIAGNOSTICS & TIPS</span>
                 </a>
             </nav>
         </div>
 
-        <!-- Sidebar Bottom: Theme Switcher & User Badge -->
-        <div class="space-y-4 pt-4 border-t border-slate-800/60 light:border-slate-200">
+        <div class="space-y-4 pt-4 border-t border-slate-800/60">
             <div>
                 <label class="block text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-1.5">DISPLAY THEME</label>
-                <select id="theme-select" class="w-full bg-[#0B1120] dark:bg-[#0B1120] light:bg-slate-200 border border-slate-800 dark:border-slate-800 light:border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold text-slate-300 dark:text-slate-300 light:text-slate-800 focus:outline-none cursor-pointer">
+                <select id="theme-select" class="w-full bg-[#0B1120] border border-slate-800 rounded-xl px-3 py-2 text-xs font-semibold text-slate-300 focus:outline-none cursor-pointer">
                     <option value="dark">Dark Cyber Theme</option>
                     <option value="light">Classic Light Layout</option>
                 </select>
             </div>
 
-            <div class="flex items-center space-x-3 p-2.5 rounded-xl bg-[#0B1120]/80 dark:bg-[#0B1120]/80 light:bg-slate-200/80 border border-slate-800/80 dark:border-slate-800/80 light:border-slate-300">
-                <div class="w-8 h-8 rounded-lg bg-blue-600 font-bold text-white flex items-center justify-center text-xs">
-                    AS
-                </div>
+            <div class="flex items-center space-x-3 p-2.5 rounded-xl bg-[#0B1120]/80 border border-slate-800/80">
+                <div class="w-8 h-8 rounded-lg bg-blue-600 font-bold text-white flex items-center justify-center text-xs">AS</div>
                 <div class="flex-1 truncate">
-                    <div class="text-xs font-bold text-white dark:text-white light:text-slate-900 truncate">Abhishek Singh</div>
+                    <div class="text-xs font-bold text-white truncate">Abhishek Singh</div>
                     <div class="text-[10px] font-mono text-emerald-400 flex items-center space-x-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
                         <span>Operator Active</span>
                     </div>
                 </div>
@@ -105,15 +85,15 @@
         </div>
     </aside>
 
-    <!-- MAIN RIGHT WORKSPACE AREA -->
+    <!-- RIGHT MAIN WORKSPACE -->
     <div class="flex-1 lg:ml-64 flex flex-col justify-between min-h-screen">
 
-        <!-- TOP SEARCH BAR & STATUS HEADER -->
-        <header class="h-16 border-b border-slate-800/60 dark:border-slate-800/60 light:border-slate-200 px-6 lg:px-8 flex items-center justify-between bg-[#050811]/80 dark:bg-[#050811]/80 light:bg-white/80 backdrop-blur-md sticky top-0 z-40">
+        <!-- HEADER -->
+        <header class="h-16 border-b border-slate-800/60 px-6 lg:px-8 flex items-center justify-between bg-[#050811]/80 backdrop-blur-md sticky top-0 z-40">
             <div class="flex-1 max-w-md">
                 <div class="relative">
                     <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-xs text-slate-500"></i>
-                    <input type="text" placeholder="Search (press Enter)... e.g., scanner, logs, tools" class="w-full bg-[#0B1120] dark:bg-[#0B1120] light:bg-slate-100 border border-slate-800/80 dark:border-slate-800/80 light:border-slate-300 rounded-xl pl-9 pr-4 py-2 text-xs font-mono text-slate-300 dark:text-slate-300 light:text-slate-800 focus:outline-none focus:border-cyan-500 transition placeholder:text-slate-500">
+                    <input type="text" placeholder="Search (press Enter)... e.g., scanner, logs, tools" class="w-full bg-[#0B1120] border border-slate-800/80 rounded-xl pl-9 pr-4 py-2 text-xs font-mono text-slate-300 focus:outline-none focus:border-cyan-500 transition">
                 </div>
             </div>
 
@@ -125,21 +105,21 @@
             </div>
         </header>
 
-        <!-- MAIN DASHBOARD CONTENT GRID -->
+        <!-- MAIN CONTENT CONTAINER -->
         <main class="p-4 sm:p-6 lg:p-8 space-y-8 max-w-7xl mx-auto w-full">
 
-            <!-- SECTION 1: HERO CONTAINER & SYSTEM FIREWALL WIDGET -->
+            <!-- HERO SECTION -->
             <div id="home" class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
-                <div class="lg:col-span-2 bg-[#0B1120]/80 dark:bg-[#0B1120]/80 light:bg-white border border-slate-800/80 dark:border-slate-800/80 light:border-slate-200 rounded-2xl p-6 lg:p-8 relative overflow-hidden flex flex-col justify-between shadow-xl">
+                <div class="lg:col-span-2 cyber-glass rounded-2xl p-6 lg:p-8 relative flex flex-col justify-between shadow-xl">
                     <div class="space-y-4">
                         <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
                             <i class="fa-solid fa-bolt text-xs"></i> <span>Local Sandbox Terminal</span>
                         </div>
-                        <h1 class="text-3xl sm:text-4xl font-black tracking-tight text-white dark:text-white light:text-slate-900">
+                        <h1 class="text-3xl sm:text-4xl font-black tracking-tight text-white">
                             Analyze Suspicious <br>
                             <span class="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">Data Links & Parameters</span>
                         </h1>
-                        <p class="text-slate-400 dark:text-slate-400 light:text-slate-600 text-xs sm:text-sm max-w-xl leading-relaxed">
+                        <p class="text-slate-400 text-xs sm:text-sm max-w-xl leading-relaxed">
                             Check suspicious text fields, emails templates, QR links, and strings payloads against local matching rules frameworks inside clean isolated browser sandbox blocks.
                         </p>
                     </div>
@@ -151,20 +131,20 @@
                     </div>
                 </div>
 
-                <div class="bg-[#0B1120]/80 dark:bg-[#0B1120]/80 light:bg-white border border-slate-800/80 dark:border-slate-800/80 light:border-slate-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center space-y-4 shadow-xl">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 text-2xl shadow-inner">
+                <div class="cyber-glass rounded-2xl p-6 flex flex-col items-center justify-center text-center space-y-4 shadow-xl">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 text-2xl">
                         <i class="fa-solid fa-shield-cat"></i>
                     </div>
                     <div>
-                        <h3 class="text-base font-bold text-white dark:text-white light:text-slate-900">System Firewall Node</h3>
+                        <h3 class="text-base font-bold text-white">System Firewall Node</h3>
                         <p class="text-xs text-slate-400 font-mono mt-0.5">Local storage processing registers</p>
                     </div>
-                    <div class="grid grid-cols-2 gap-4 w-full pt-4 border-t border-slate-800/60 light:border-slate-200 font-mono text-xs">
-                        <div class="bg-[#070C18] dark:bg-[#070C18] light:bg-slate-100 p-2.5 rounded-xl border border-slate-800/80 dark:border-slate-800/80 light:border-slate-200">
+                    <div class="grid grid-cols-2 gap-4 w-full pt-4 border-t border-slate-800/60 font-mono text-xs">
+                        <div class="bg-[#070C18] p-2.5 rounded-xl border border-slate-800/80">
                             <span class="text-[10px] text-slate-500 block uppercase">ENGINE NODE</span>
                             <span class="text-emerald-400 font-bold">OPERATIONAL</span>
                         </div>
-                        <div class="bg-[#070C18] dark:bg-[#070C18] light:bg-slate-100 p-2.5 rounded-xl border border-slate-800/80 dark:border-slate-800/80 light:border-slate-200">
+                        <div class="bg-[#070C18] p-2.5 rounded-xl border border-slate-800/80">
                             <span class="text-[10px] text-slate-500 block uppercase">BUILD SIGNATURE</span>
                             <span class="text-cyan-400 font-bold">v1.2.6-Vanilla</span>
                         </div>
@@ -172,41 +152,39 @@
                 </div>
             </div>
 
-            <!-- SECTION 2: CORE SCANNER INTERFACE -->
+            <!-- CORE SCANNER SECTION -->
             <div id="scanner" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="lg:col-span-2 bg-[#0B1120]/80 dark:bg-[#0B1120]/80 light:bg-white border border-slate-800/80 dark:border-slate-800/80 light:border-slate-200 rounded-2xl p-6 shadow-xl space-y-5">
-                    <div class="flex space-x-2 border-b border-slate-800/80 dark:border-slate-800/80 light:border-slate-200 pb-3 font-mono text-xs">
-                        <button id="tab-url" onclick="switchTab('url')" class="tab-btn px-4 py-2 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold flex items-center space-x-2 cursor-pointer">
+                <div class="lg:col-span-2 cyber-glass rounded-2xl p-6 shadow-xl space-y-5">
+                    <div class="flex space-x-2 border-b border-slate-800/80 pb-3 font-mono text-xs">
+                        <button id="tab-url" onclick="switchTab('url')" class="tab-btn px-4 py-2 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold flex items-center space-x-2">
                             <i class="fa-solid fa-link text-xs"></i> <span>URL</span>
                         </button>
-                        <button id="tab-email" onclick="switchTab('email')" class="tab-btn px-4 py-2 rounded-xl text-slate-400 hover:text-slate-200 flex items-center space-x-2 cursor-pointer">
+                        <button id="tab-email" onclick="switchTab('email')" class="tab-btn px-4 py-2 rounded-xl text-slate-400 hover:text-slate-200 flex items-center space-x-2">
                             <i class="fa-solid fa-envelope text-xs"></i> <span>EMAIL</span>
                         </button>
-                        <button id="tab-sms" onclick="switchTab('sms')" class="tab-btn px-4 py-2 rounded-xl text-slate-400 hover:text-slate-200 flex items-center space-x-2 cursor-pointer">
+                        <button id="tab-sms" onclick="switchTab('sms')" class="tab-btn px-4 py-2 rounded-xl text-slate-400 hover:text-slate-200 flex items-center space-x-2">
                             <i class="fa-solid fa-comment-sms text-xs"></i> <span>SMS</span>
                         </button>
-                        <button id="tab-qr" onclick="switchTab('qr')" class="tab-btn px-4 py-2 rounded-xl text-slate-400 hover:text-slate-200 flex items-center space-x-2 cursor-pointer">
+                        <button id="tab-qr" onclick="switchTab('qr')" class="tab-btn px-4 py-2 rounded-xl text-slate-400 hover:text-slate-200 flex items-center space-x-2">
                             <i class="fa-solid fa-qrcode text-xs"></i> <span>QR CONTENT</span>
                         </button>
                     </div>
 
                     <div class="space-y-2">
                         <label for="payload-input" class="block text-[10px] font-mono text-slate-400 uppercase tracking-widest">PAYLOAD RAW TEXT DATA</label>
-                        <textarea id="payload-input" rows="4" class="w-full bg-[#050811] dark:bg-[#050811] light:bg-slate-50 border border-slate-800/80 dark:border-slate-800/80 light:border-slate-300 rounded-xl p-4 text-xs font-mono text-cyan-300 dark:text-cyan-300 light:text-slate-900 focus:outline-none focus:border-cyan-500 transition placeholder:text-slate-600 resize-none" placeholder="Insert your suspicious elements here to test risk values calculations..."></textarea>
+                        <textarea id="payload-input" rows="4" class="w-full bg-[#050811] border border-slate-800 rounded-xl p-4 text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-500 transition placeholder:text-slate-600 resize-none" placeholder="Insert suspicious URL (e.g. pov.orrg.in), email, or SMS to run risk calculations..."></textarea>
                     </div>
 
-                    <button onclick="runAnalysisCheck()" class="w-full py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black rounded-xl transition text-xs tracking-wider uppercase flex items-center justify-center space-x-2 shadow-lg shadow-cyan-500/10 cursor-pointer">
+                    <button onclick="runAnalysisCheck()" class="w-full py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black rounded-xl transition text-xs tracking-wider uppercase flex items-center justify-center space-x-2 shadow-lg shadow-cyan-500/10">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <span>INITIALIZE ANALYSIS CHECK</span>
                     </button>
                 </div>
 
-                <div class="bg-[#0B1120]/80 dark:bg-[#0B1120]/80 light:bg-white border border-slate-800/80 dark:border-slate-800/80 light:border-slate-200 rounded-2xl p-6 shadow-xl flex flex-col justify-between">
+                <div class="cyber-glass rounded-2xl p-6 shadow-xl flex flex-col justify-between">
                     <div id="output-idle" class="my-auto text-center space-y-3 py-8">
-                        <div class="text-4xl text-slate-600">
-                            <i class="fa-solid fa-terminal"></i>
-                        </div>
-                        <h4 class="text-sm font-bold text-slate-300 dark:text-slate-300 light:text-slate-800">Scanner Engine Idle</h4>
+                        <div class="text-4xl text-slate-600"><i class="fa-solid fa-terminal"></i></div>
+                        <h4 class="text-sm font-bold text-slate-300">Scanner Engine Idle</h4>
                         <p class="text-xs text-slate-500 font-mono max-w-xs mx-auto">Input target characters inside form tracking block to evaluate results telemetry charts.</p>
                     </div>
 
@@ -223,94 +201,70 @@
                         </div>
 
                         <div class="space-y-2">
-                            <span class="text-[10px] font-mono text-slate-500 uppercase">DIAGNOSTIC LOGS</span>
-                            <ul id="res-logs" class="space-y-2 text-xs font-mono">
-                            </ul>
+                            <span class="text-[10px] font-mono text-slate-500 uppercase block">DIAGNOSTIC LOGS</span>
+                            <ul id="res-logs" class="space-y-2 font-mono text-slate-300"></ul>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- SECTION 3: PLATFORM HEALTH & TELEMETRY MATRIX -->
-            <div id="telemetry" class="bg-[#0B1120]/80 dark:bg-[#0B1120]/80 light:bg-white border border-slate-800/80 dark:border-slate-800/80 light:border-slate-200 rounded-2xl p-6 shadow-xl space-y-4">
+            <!-- TELEMETRY MATRIX -->
+            <div id="telemetry" class="cyber-glass rounded-2xl p-6 shadow-xl space-y-4">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
                         <div class="inline-flex items-center space-x-1.5 text-cyan-400 text-[10px] font-mono font-bold uppercase tracking-widest">
                             <i class="fa-solid fa-code-branch"></i> <span>PLATFORM HEALTH MODULE</span>
                         </div>
-                        <h3 class="text-lg font-bold text-white dark:text-white light:text-slate-900 mt-1">Interactive Sandbox Diagnostic Controller</h3>
-                        <p class="text-xs text-slate-400 font-mono">Trigger testing algorithms loops instantly inside browser environment registers.</p>
+                        <h3 class="text-lg font-bold text-white mt-1">Interactive Sandbox Diagnostic Controller</h3>
                     </div>
                     <div class="flex items-center space-x-3 text-xs font-mono">
-                        <button onclick="runDiagnosticTest()" class="px-4 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 font-bold transition cursor-pointer">Run Diagnostics</button>
-                        <button onclick="alert('System operating within normal parameters. All local JS heuristics active.')" class="px-4 py-2 rounded-xl bg-slate-900 dark:bg-slate-900 light:bg-slate-200 text-slate-300 dark:text-slate-300 light:text-slate-800 border border-slate-800/80 dark:border-slate-800/80 light:border-slate-300 transition cursor-pointer">Show Secure Tips</button>
+                        <button onclick="runDiagnosticTest()" class="px-4 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 font-bold transition">Run Diagnostics</button>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
-                    <div class="bg-[#070C18] dark:bg-[#070C18] light:bg-slate-100 p-4 rounded-xl border border-slate-800/80 dark:border-slate-800/80 light:border-slate-200">
-                        <div class="flex justify-between items-center text-xs font-mono text-slate-400">
-                            <span>SCANS LOGGED</span>
-                            <i class="fa-solid fa-database text-slate-600"></i>
-                        </div>
-                        <div id="stat-total" class="text-2xl font-black font-mono text-white dark:text-white light:text-slate-900 mt-2">0</div>
+                    <div class="bg-[#070C18] p-4 rounded-xl border border-slate-800/80">
+                        <span class="text-xs font-mono text-slate-400 block">SCANS LOGGED</span>
+                        <div id="stat-total" class="text-2xl font-black font-mono text-white mt-2">0</div>
                     </div>
-
-                    <div class="bg-[#070C18] dark:bg-[#070C18] light:bg-slate-100 p-4 rounded-xl border border-slate-800/80 dark:border-slate-800/80 light:border-slate-200">
-                        <div class="flex justify-between items-center text-xs font-mono text-slate-400">
-                            <span>CLEAN RECORDS</span>
-                            <i class="fa-solid fa-circle-check text-emerald-500"></i>
-                        </div>
+                    <div class="bg-[#070C18] p-4 rounded-xl border border-slate-800/80">
+                        <span class="text-xs font-mono text-slate-400 block">CLEAN RECORDS</span>
                         <div id="stat-clean" class="text-2xl font-black font-mono text-emerald-400 mt-2">0</div>
                     </div>
-
-                    <div class="bg-[#070C18] dark:bg-[#070C18] light:bg-slate-100 p-4 rounded-xl border border-slate-800/80 dark:border-slate-800/80 light:border-slate-200">
-                        <div class="flex justify-between items-center text-xs font-mono text-slate-400">
-                            <span>SUSPICIOUS</span>
-                            <i class="fa-solid fa-triangle-exclamation text-amber-500"></i>
-                        </div>
+                    <div class="bg-[#070C18] p-4 rounded-xl border border-slate-800/80">
+                        <span class="text-xs font-mono text-slate-400 block">SUSPICIOUS</span>
                         <div id="stat-suspicious" class="text-2xl font-black font-mono text-amber-400 mt-2">0</div>
                     </div>
-
-                    <div class="bg-[#070C18] dark:bg-[#070C18] light:bg-slate-100 p-4 rounded-xl border border-slate-800/80 dark:border-slate-800/80 light:border-slate-200">
-                        <div class="flex justify-between items-center text-xs font-mono text-slate-400">
-                            <span>DANGEROUS</span>
-                            <i class="fa-solid fa-skull text-red-500"></i>
-                        </div>
+                    <div class="bg-[#070C18] p-4 rounded-xl border border-slate-800/80">
+                        <span class="text-xs font-mono text-slate-400 block">DANGEROUS</span>
                         <div id="stat-dangerous" class="text-2xl font-black font-mono text-red-400 mt-2">0</div>
                     </div>
                 </div>
             </div>
 
-            <!-- SECTION 4: STORAGE REGISTERS & LOCAL STORAGE LOG TABLE -->
+            <!-- STORAGE & CACHE REGISTERS -->
             <div id="storage" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="bg-[#0B1120]/80 dark:bg-[#0B1120]/80 light:bg-white border border-slate-800/80 dark:border-slate-800/80 light:border-slate-200 rounded-2xl p-6 shadow-xl flex flex-col justify-between">
-                    <span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest block font-bold">PROPORTIONS VECTOR</span>
-                    
+                <div class="cyber-glass rounded-2xl p-6 shadow-xl flex flex-col justify-between">
+                    <span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold block">PROPORTIONS VECTOR</span>
                     <div class="my-6 flex flex-col items-center justify-center">
-                        <div class="w-36 h-36 rounded-full border-8 border-slate-800/80 dark:border-slate-800/80 light:border-slate-200 flex items-center justify-center text-center">
+                        <div class="w-36 h-36 rounded-full border-8 border-slate-800 flex items-center justify-center text-center">
                             <div>
-                                <span id="vector-count" class="text-2xl font-black font-mono text-white dark:text-white light:text-slate-900 block">0</span>
+                                <span id="vector-count" class="text-2xl font-black font-mono text-white block">0</span>
                                 <span class="text-[10px] font-mono text-slate-500 uppercase">ITEMS</span>
                             </div>
                         </div>
                     </div>
-
-                    <div class="text-[11px] font-mono text-slate-500 text-center">Local browser memory representation vector</div>
                 </div>
 
-                <div class="lg:col-span-2 bg-[#0B1120]/80 dark:bg-[#0B1120]/80 light:bg-white border border-slate-800/80 dark:border-slate-800/80 light:border-slate-200 rounded-2xl p-6 shadow-xl space-y-4">
+                <div class="lg:col-span-2 cyber-glass rounded-2xl p-6 shadow-xl space-y-4">
                     <div class="flex justify-between items-center">
                         <span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold">LOCALSTORAGE CACHE LOGS</span>
-                        <div class="flex items-center space-x-2">
-                            <input type="text" id="filter-logs" onkeyup="renderLogsTable()" placeholder="Filter strings..." class="bg-[#050811] dark:bg-[#050811] light:bg-slate-100 border border-slate-800/80 dark:border-slate-800/80 light:border-slate-300 rounded-lg px-2.5 py-1 text-xs font-mono text-slate-300 dark:text-slate-300 light:text-slate-800 focus:outline-none">
-                            <button onclick="wipeLogs()" class="px-3 py-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 rounded-lg text-xs font-mono font-bold transition cursor-pointer">Wipe Data</button>
-                        </div>
+                        <button onclick="wipeLogs()" class="px-3 py-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 rounded-lg text-xs font-mono font-bold transition">Wipe Data</button>
                     </div>
 
                     <div class="overflow-x-auto">
                         <table class="w-full text-left font-mono text-xs">
-                            <thead class="text-[10px] text-slate-500 uppercase border-b border-slate-800/80 dark:border-slate-800/80 light:border-slate-200">
+                            <thead class="text-[10px] text-slate-500 uppercase border-b border-slate-800">
                                 <tr>
                                     <th class="py-2.5">LOGGED</th>
                                     <th class="py-2.5">VECTOR</th>
@@ -319,88 +273,101 @@
                                     <th class="py-2.5 text-right">ACTION</th>
                                 </tr>
                             </thead>
-                            <tbody id="logs-table-body" class="divide-y divide-slate-800/40 dark:divide-slate-800/40 light:divide-slate-200 text-slate-300 dark:text-slate-300 light:text-slate-800">
-                                <tr>
-                                    <td colspan="5" class="py-8 text-center text-slate-600">Registers space empty. Run scanner to add logs.</td>
-                                </tr>
-                            </tbody>
+                            <tbody id="logs-table-body" class="divide-y divide-slate-800/40 text-slate-300"></tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- SECTION 5: TOOLS SANDBOX & QUIZ -->
+            <!-- TOOLS SANDBOX & DIAGNOSTICS -->
             <div id="tools" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div class="bg-[#0B1120]/80 dark:bg-[#0B1120]/80 light:bg-white border border-slate-800/80 dark:border-slate-800/80 light:border-slate-200 rounded-2xl p-6 shadow-xl space-y-4">
-                    <div>
-                        <h4 class="text-base font-bold text-white dark:text-white light:text-slate-900 flex items-center space-x-2">
-                            <i class="fa-solid fa-key text-red-400"></i>
-                            <span>Password Entropy Sandbox</span>
-                        </h4>
-                        <p class="text-xs text-slate-400 font-mono mt-0.5">Calculate actual character bit strength variables inside browser local memory.</p>
+                <div class="cyber-glass rounded-2xl p-6 shadow-xl space-y-4">
+                    <h4 class="text-base font-bold text-white flex items-center space-x-2">
+                        <i class="fa-solid fa-key text-red-400"></i>
+                        <span>Password Entropy Sandbox</span>
+                    </h4>
+                    <input type="password" id="pass-test-input" oninput="testPasswordEntropy()" placeholder="Insert test key password..." class="w-full bg-[#050811] border border-slate-800 rounded-xl p-3 text-xs font-mono text-cyan-300 focus:outline-none">
+                    <div class="flex justify-between items-center text-xs font-mono">
+                        <span class="text-slate-500">Resilience Index:</span>
+                        <span id="pass-entropy-score" class="font-bold text-slate-400">0% – Awaiting Entry</span>
                     </div>
-
-                    <div class="space-y-3">
-                        <input type="password" id="pass-test-input" oninput="testPasswordEntropy()" placeholder="Insert test key password..." class="w-full bg-[#050811] dark:bg-[#050811] light:bg-slate-100 border border-slate-800/80 dark:border-slate-800/80 light:border-slate-300 rounded-xl p-3 text-xs font-mono text-cyan-300 dark:text-cyan-300 light:text-slate-800 focus:outline-none">
-                        
-                        <div class="flex justify-between items-center text-xs font-mono">
-                            <span class="text-slate-500">Resilience Index:</span>
-                            <span id="pass-entropy-score" class="font-bold text-slate-400">0% – Awaiting Entry</span>
-                        </div>
-
-                        <div class="w-full bg-[#050811] rounded-full h-1.5 overflow-hidden border border-slate-800">
-                            <div id="pass-entropy-bar" class="bg-slate-700 h-1.5 rounded-full transition-all duration-300" style="width: 0%"></div>
-                        </div>
-
-                        <div class="flex justify-between text-[10px] font-mono text-slate-500 pt-1">
-                            <span>MIN 12 SYMBOLS</span>
-                            <span>MIXED CASE ARRAY</span>
-                        </div>
+                    <div class="w-full bg-[#050811] rounded-full h-1.5 overflow-hidden border border-slate-800">
+                        <div id="pass-entropy-bar" class="bg-slate-700 h-1.5 rounded-full transition-all" style="width: 0%"></div>
                     </div>
                 </div>
 
-                <div id="diagnostics" class="bg-[#0B1120]/80 dark:bg-[#0B1120]/80 light:bg-white border border-slate-800/80 dark:border-slate-800/80 light:border-slate-200 rounded-2xl p-6 shadow-xl space-y-4 flex flex-col justify-between">
-                    <div>
-                        <h4 class="text-base font-bold text-white dark:text-white light:text-slate-900 flex items-center space-x-2">
-                            <i class="fa-solid fa-graduation-cap text-cyan-400"></i>
-                            <span>Knowledge Check Loop</span>
-                        </h4>
-                        <p class="text-xs text-slate-400 font-mono mt-0.5">Evaluate vector processing verification capabilities parameters.</p>
-                    </div>
-
-                    <div id="quiz-container" class="my-auto py-6 text-center space-y-3">
-                        <p id="quiz-question-text" class="text-xs text-slate-400 font-mono">Activate verification testing patterns logic module.</p>
-                        <div id="quiz-options" class="hidden space-y-2 pt-2">
-                        </div>
-                        <button id="quiz-start-btn" onclick="startQuizLoop()" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs font-mono transition cursor-pointer">Start Evaluation Loop</button>
-                    </div>
-
-                    <div class="text-[10px] font-mono text-slate-500 text-right">CYBERGUARD VERIFICATION MODULE</div>
+                <div id="diagnostics" class="cyber-glass rounded-2xl p-6 shadow-xl space-y-4">
+                    <h4 class="text-base font-bold text-white flex items-center space-x-2">
+                        <i class="fa-solid fa-graduation-cap text-cyan-400"></i>
+                        <span>Knowledge Check Loop</span>
+                    </h4>
+                    <p class="text-xs text-slate-400 font-mono">Test your phishing detection capability with instant vector analysis loops.</p>
                 </div>
             </div>
 
-            <!-- FOOTER CREDITS -->
-            <footer class="pt-8 pb-4 border-t border-slate-800/60 dark:border-slate-800/60 light:border-slate-200 flex flex-col items-center justify-center space-y-3 text-center font-mono text-xs text-slate-500">
-                <div class="flex space-x-4">
-                    <a href="https://github.com/CompileWithAbhishek" target="_blank" class="px-3 py-1.5 rounded-lg bg-[#0B1120] dark:bg-[#0B1120] light:bg-slate-200 border border-slate-800 dark:border-slate-800 light:border-slate-300 hover:text-slate-200 transition"><i class="fa-brands fa-github mr-1"></i> GITHUB</a>
-                    <a href="#" class="px-3 py-1.5 rounded-lg bg-[#0B1120] dark:bg-[#0B1120] light:bg-slate-200 border border-slate-800 dark:border-slate-800 light:border-slate-300 hover:text-slate-200 transition"><i class="fa-brands fa-linkedin mr-1"></i> LINKEDIN</a>
-                    <a href="#" class="px-3 py-1.5 rounded-lg bg-[#0B1120] dark:bg-[#0B1120] light:bg-slate-200 border border-slate-800 dark:border-slate-800 light:border-slate-300 hover:text-slate-200 transition"><i class="fa-solid fa-envelope mr-1"></i> CONTACT US</a>
+            <!-- IMPROVED ENTERPRISE FOOTER -->
+            <footer class="pt-10 pb-6 border-t border-slate-800/60 font-mono text-xs space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-slate-400">
+                    <div>
+                        <div class="text-white font-bold mb-2 flex items-center space-x-2">
+                            <i class="fa-solid fa-shield-halved text-cyan-400"></i>
+                            <span>CYBERGUARD AI</span>
+                        </div>
+                        <p class="text-[11px] text-slate-500 leading-relaxed">Client-side zero-latency threat detection & phishing payload isolation sandbox.</p>
+                    </div>
+
+                    <div>
+                        <div class="text-white font-bold mb-2">QUICK MODULES</div>
+                        <ul class="space-y-1 text-[11px]">
+                            <li><a href="#scanner" class="hover:text-cyan-400 transition">Core Scanner</a></li>
+                            <li><a href="#telemetry" class="hover:text-cyan-400 transition">Telemetry Matrix</a></li>
+                            <li><a href="#storage" class="hover:text-cyan-400 transition">Local Storage Logs</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <div class="text-white font-bold mb-2">DEVELOPER CONNECT</div>
+                        <div class="flex space-x-3">
+                            <a href="https://github.com/CompileWithAbhishek" target="_blank" class="px-3 py-1.5 rounded-lg bg-[#0B1120] border border-slate-800 hover:text-cyan-400 transition"><i class="fa-brands fa-github mr-1"></i> GitHub</a>
+                            <a href="#" class="px-3 py-1.5 rounded-lg bg-[#0B1120] border border-slate-800 hover:text-cyan-400 transition"><i class="fa-brands fa-linkedin mr-1"></i> LinkedIn</a>
+                        </div>
+                    </div>
                 </div>
-                <p>Engineered & Maintained by <span class="text-slate-300 dark:text-slate-300 light:text-slate-900 font-bold">Abhishek Singh</span></p>
-                <p class="text-[10px] text-slate-600">© 2026 CyberGuard AI Infrastructure. All architecture rights reserved.</p>
+
+                <div class="pt-4 border-t border-slate-800/40 text-center text-slate-500 text-[11px] space-y-1">
+                    <p>Engineered & Maintained by <span class="text-white font-bold">Abhishek Singh</span></p>
+                    <p class="text-slate-600">© 2026 CyberGuard AI Infrastructure. Local Browser Isolation Architecture.</p>
+                </div>
             </footer>
 
         </main>
     </div>
 
-    <!-- FLOATING AI BOT WIDGET -->
+    <!-- FLOATING AI BOT BUTTON & MODAL -->
     <div class="fixed bottom-6 right-6 z-50">
-        <button onclick="alert('CyberGuard AI Assistant: Local Heuristic Analysis System is running at 100% capacity.')" class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 text-white flex items-center justify-center text-xl shadow-2xl hover:scale-105 transition cursor-pointer">
+        <button onclick="toggleAiChat()" class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 text-white flex items-center justify-center text-xl shadow-2xl hover:scale-105 transition cursor-pointer">
             <i class="fa-solid fa-robot"></i>
         </button>
     </div>
 
-    <!-- External Script -->
+    <!-- AI CHATBOT MODAL -->
+    <div id="ai-chat-modal" class="hidden fixed bottom-20 right-6 w-80 sm:w-96 bg-[#0B1120] border border-slate-800 rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col h-96">
+        <div class="bg-[#070C18] p-3 border-b border-slate-800 flex justify-between items-center">
+            <div class="flex items-center space-x-2 text-xs font-bold text-cyan-400">
+                <i class="fa-solid fa-robot"></i>
+                <span>CyberGuard Assistant</span>
+            </div>
+            <button onclick="toggleAiChat()" class="text-slate-500 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div id="ai-chat-messages" class="flex-1 p-3 overflow-y-auto space-y-2 text-xs font-mono">
+            <div class="text-left"><span class="inline-block bg-slate-800 text-cyan-300 p-2.5 rounded-xl border border-slate-700">Hello Abhishek! I am CyberGuard AI Agent. Ask me about suspicious URLs or email flags.</span></div>
+        </div>
+        <div class="p-2 bg-[#070C18] border-t border-slate-800 flex space-x-2">
+            <input type="text" id="ai-chat-input" placeholder="Ask AI..." class="flex-1 bg-[#050811] border border-slate-800 rounded-lg px-3 py-1.5 text-xs font-mono text-slate-200 focus:outline-none">
+            <button onclick="sendAiMessage()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg text-xs"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
