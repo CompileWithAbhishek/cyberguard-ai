@@ -3,7 +3,7 @@ let scanLogs = JSON.parse(localStorage.getItem('cyberguard_logs') || '[]');
 let currentTab = 'url';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Fixed Theme Toggle Mechanism
+    // Theme Toggle
     const themeSelect = document.getElementById('theme-select');
     if (themeSelect) {
         themeSelect.addEventListener('change', (e) => {
@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Navigation Active Class & Smooth Scroll
+    // Navigation Links
     document.querySelectorAll('nav a').forEach(link => {
-        link.addEventListener('click', function (e) {
+        link.addEventListener('click', function () {
             document.querySelectorAll('nav a').forEach(l => l.classList.remove('bg-cyan-500/10', 'text-cyan-400', 'border', 'border-cyan-500/20', 'font-bold'));
             this.classList.add('bg-cyan-500/10', 'text-cyan-400', 'border', 'border-cyan-500/20', 'font-bold');
         });
@@ -42,7 +42,7 @@ function switchTab(tab) {
     }
 }
 
-// Advanced Strict Detection Engine (Fixes suspicious links flagged as Safe)
+// Detection Engine
 function runAnalysisCheck() {
     const inputField = document.getElementById('payload-input');
     const rawVal = inputField ? inputField.value.trim() : '';
@@ -56,30 +56,30 @@ function runAnalysisCheck() {
     let flags = [];
     const lower = rawVal.toLowerCase();
 
-    // 1. Typosquatting & Misspelled Domain Detection (.orrg, .govv, .com-login)
+    // Typosquatting Check (.orrg, .govv, etc.)
     const typoPattern = /\.(orrg|govv|cm|nett|coo|infoo|xyz|top|zip|work|click)\b/;
     if (typoPattern.test(lower)) {
         riskScore += 80;
         flags.push("CRITICAL: Typosquatting/Spoofed Domain Extension Detected.");
     }
 
-    // 2. Multi-subdomain & Hyphen Tricks
+    // Subdomains & Hyphens
     if ((lower.match(/\./g) || []).length >= 3) {
         riskScore += 30;
-        flags.push("WARNING: High Subdomain nesting depth (Phishing structure).");
+        flags.push("WARNING: High Subdomain nesting depth.");
     }
     if ((lower.match(/-/g) || []).length >= 2) {
         riskScore += 20;
-        flags.push("SUSPICIOUS: Multiple hyphens used in domain string.");
+        flags.push("SUSPICIOUS: Multiple hyphens used in domain.");
     }
 
-    // 3. Raw IP Address Links
+    // Raw IP Check
     if (/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(lower.replace(/http(s)?:\/\//, '').split('/')[0])) {
         riskScore += 85;
         flags.push("DANGEROUS: Direct IP hosting instead of legitimate domain.");
     }
 
-    // 4. Credential Harvesting & Urgency Keywords
+    // Urgent Keywords
     const urgentKeywords = ['verify', 'blocked', 'urgent', 'kyc', 'suspend', 'update-password', 'secure-login', 'bank', 'free-gift'];
     let keywordHits = 0;
     urgentKeywords.forEach(kw => {
@@ -99,7 +99,7 @@ function runAnalysisCheck() {
 
     if (flags.length === 0) flags.push("No structural anomalies or malicious indicators detected.");
 
-    // Update Local Storage Log
+    // Update Logs
     const newEntry = {
         id: Date.now(),
         time: new Date().toLocaleTimeString(),
@@ -113,30 +113,35 @@ function runAnalysisCheck() {
     scanLogs.unshift(newEntry);
     localStorage.setItem('cyberguard_logs', JSON.stringify(scanLogs));
 
-    // Render Results Monitor
-    document.getElementById('output-idle').classList.add('hidden');
+    // Render Results
+    document.getElementById('output-idle')?.classList.add('hidden');
     const resContainer = document.getElementById('output-results');
-    resContainer.classList.remove('hidden');
+    resContainer?.classList.remove('hidden');
 
     const statusEl = document.getElementById('res-status');
-    statusEl.innerText = status;
-    statusEl.className = status === 'DANGEROUS' ? 'text-xl font-extrabold text-red-500 animate-pulse' : (status === 'SUSPICIOUS' ? 'text-xl font-extrabold text-amber-400' : 'text-xl font-extrabold text-emerald-400');
+    if (statusEl) {
+        statusEl.innerText = status;
+        statusEl.className = status === 'DANGEROUS' ? 'text-xl font-extrabold text-red-500 animate-pulse' : (status === 'SUSPICIOUS' ? 'text-xl font-extrabold text-amber-400' : 'text-xl font-extrabold text-emerald-400');
+    }
 
-    document.getElementById('res-score').innerText = `${riskScore}%`;
+    const scoreEl = document.getElementById('res-score');
+    if (scoreEl) scoreEl.innerText = `${riskScore}%`;
 
     const logsList = document.getElementById('res-logs');
-    logsList.innerHTML = flags.map(f => `
-        <li class="flex items-start space-x-2 text-xs">
-            <i class="fa-solid ${status === 'CLEAN' ? 'fa-check text-emerald-400' : 'fa-triangle-exclamation text-amber-400'} mt-0.5"></i>
-            <span>${f}</span>
-        </li>
-    `).join('');
+    if (logsList) {
+        logsList.innerHTML = flags.map(f => `
+            <li class="flex items-start space-x-2 text-xs">
+                <i class="fa-solid ${status === 'CLEAN' ? 'fa-check text-emerald-400' : 'fa-triangle-exclamation text-amber-400'} mt-0.5"></i>
+                <span>${f}</span>
+            </li>
+        `).join('');
+    }
 
     updateTelemetryStats();
     renderLogsTable();
 }
 
-// Update Counters
+// Telemetry Stats
 function updateTelemetryStats() {
     const total = scanLogs.length;
     const clean = scanLogs.filter(l => l.status === 'CLEAN').length;
@@ -150,7 +155,7 @@ function updateTelemetryStats() {
     if (document.getElementById('vector-count')) document.getElementById('vector-count').innerText = total;
 }
 
-// Render LocalStorage Table
+// Table Logs
 function renderLogsTable() {
     const filter = (document.getElementById('filter-logs')?.value || '').toLowerCase();
     const tbody = document.getElementById('logs-table-body');
@@ -174,7 +179,7 @@ function renderLogsTable() {
                 </span>
             </td>
             <td class="py-3 text-right">
-                <button onclick="deleteLog(${l.id})" class="text-slate-500 hover:text-red-400 transition"><i class="fa-solid fa-trash"></i></button>
+                <button onclick="deleteLog(${l.id})" class="text-slate-500 hover:text-red-400 transition cursor-pointer"><i class="fa-solid fa-trash"></i></button>
             </td>
         </tr>
     `).join('');
@@ -218,10 +223,90 @@ function testPasswordEntropy() {
     bar.className = score >= 75 ? "bg-emerald-400 h-1.5 rounded-full transition-all" : (score >= 40 ? "bg-amber-400 h-1.5 rounded-full transition-all" : "bg-red-500 h-1.5 rounded-full transition-all");
 }
 
-// Interactive AI Chatbot Window
+// 🎯 Interactive Knowledge Check Quiz Loop Engine
+const quizData = [
+    {
+        q: "A link says 'http://login.sbi.com.secure-verify.orrg.in'. Is this official?",
+        opts: ["Yes, it belongs to SBI Bank", "No, spoofed domain on .orrg.in"],
+        ans: 1,
+        exp: "The real domain is 'orrg.in', not sbi.com. Scammers use subdomains to deceive."
+    },
+    {
+        q: "An email demands urgent password update within 10 mins or account gets deleted. What is this?",
+        opts: ["Social Engineering / Urgency Trap", "Standard Security Maintenance Notice"],
+        ans: 0,
+        exp: "Scammers create panic & urgency to bypass rational thinking."
+    },
+    {
+        q: "Which payload string is most dangerous inside an SMS link?",
+        opts: ["https://hdfcbank.com/netbanking", "http://192.168.1.105/verify-kyc.apk"],
+        ans: 1,
+        exp: "Direct IP hosting + insecure HTTP + .apk downloads indicate high-risk malware."
+    }
+];
+
+let quizIndex = 0;
+let quizScore = 0;
+
+function startQuizLoop() {
+    quizIndex = 0;
+    quizScore = 0;
+    document.getElementById('quiz-start-btn')?.classList.add('hidden');
+    document.getElementById('quiz-options')?.classList.remove('hidden');
+    renderQuizQuestion();
+}
+
+function renderQuizQuestion() {
+    const qData = quizData[quizIndex];
+    const qText = document.getElementById('quiz-question-text');
+    const optsContainer = document.getElementById('quiz-options');
+
+    if (qText) qText.innerText = `Q${quizIndex + 1}: ${qData.q}`;
+
+    if (optsContainer) {
+        optsContainer.innerHTML = qData.opts.map((opt, idx) => `
+            <button onclick="handleQuizAnswer(${idx})" class="w-full text-left p-3 rounded-xl bg-[#050811] hover:bg-slate-800 border border-slate-800 text-xs font-mono text-cyan-300 transition flex items-center justify-between cursor-pointer">
+                <span>${opt}</span>
+                <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
+            </button>
+        `).join('');
+    }
+}
+
+function handleQuizAnswer(selectedIdx) {
+    const currentQ = quizData[quizIndex];
+    if (selectedIdx === currentQ.ans) {
+        quizScore++;
+        alert(`✅ CORRECT!\n${currentQ.exp}`);
+    } else {
+        alert(`❌ INCORRECT!\n${currentQ.exp}`);
+    }
+
+    quizIndex++;
+    if (quizIndex < quizData.length) {
+        renderQuizQuestion();
+    } else {
+        finishQuizLoop();
+    }
+}
+
+function finishQuizLoop() {
+    const qText = document.getElementById('quiz-question-text');
+    const optsContainer = document.getElementById('quiz-options');
+    
+    if (qText) qText.innerText = `🎉 Quiz Completed! Score: ${quizScore}/${quizData.length}`;
+    if (optsContainer) {
+        optsContainer.innerHTML = `
+            <button onclick="startQuizLoop()" class="w-full py-2.5 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 border border-cyan-500/40 rounded-xl font-mono text-xs font-bold transition cursor-pointer">
+                <i class="fa-solid fa-rotate-right mr-1"></i> Restart Quiz Loop
+            </button>
+        `;
+    }
+}
+
+// AI Chatbot Toggle
 function toggleAiChat() {
-    const modal = document.getElementById('ai-chat-modal');
-    modal.classList.toggle('hidden');
+    document.getElementById('ai-chat-modal')?.classList.toggle('hidden');
 }
 
 function sendAiMessage() {
@@ -231,22 +316,19 @@ function sendAiMessage() {
 
     if (!text) return;
 
-    // Append User Message
     messages.innerHTML += `<div class="text-right"><span class="inline-block bg-blue-600 text-white text-xs px-3 py-2 rounded-xl font-mono">${text}</span></div>`;
     input.value = '';
 
-    // Bot Response
     setTimeout(() => {
-        let reply = "I am CyberGuard AI Agent. I recommend inspecting raw payload links before clicking.";
-        if (text.toLowerCase().includes('phishing')) reply = "Phishing links usually spoof extensions like .orrg or use raw IPs. Paste it into the Core Scanner!";
-        if (text.toLowerCase().includes('hello') || text.toLowerCase().includes('hi')) reply = "Hello Abhishek! How can I assist with threat telemetry today?";
+        let reply = "I am CyberGuard AI Agent. Inspect suspicious payload links inside Core Scanner!";
+        if (text.toLowerCase().includes('phishing')) reply = "Phishing links spoof extensions like .orrg or use raw IP addresses.";
+        if (text.toLowerCase().includes('hi') || text.toLowerCase().includes('hello')) reply = "Hello Abhishek! How can I assist you with threat telemetry today?";
 
         messages.innerHTML += `<div class="text-left"><span class="inline-block bg-slate-800 text-cyan-300 text-xs px-3 py-2 rounded-xl font-mono border border-slate-700">${reply}</span></div>`;
         messages.scrollTop = messages.scrollHeight;
     }, 500);
 }
 
-// Diagnostics
 function runDiagnosticTest() {
-    alert("⚡ Diagnostics Complete:\n- Local Heuristics: Active\n- Cache Registers: Synced\n- Local Storage Engine: Ready");
+    alert("⚡ Diagnostics Complete:\n- Local Heuristics: Active\n- Quiz Module: Synced\n- Local Storage Engine: Ready");
 }
