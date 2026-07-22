@@ -1,65 +1,62 @@
 @import "tailwindcss";
 
-/* Core Colors & Cyber Grid */
+/* 1. Base Setup & Background Grid */
 body {
-    background-color: #050811;
+    background-color: #070a11;
     font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
     color: #f1f5f9;
 }
 
-.bg-cyber-grid {
-    background-size: 32px 32px;
+.bg-grid-animate {
+    background-size: 35px 35px;
     background-image: 
         linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
 
-/* Glassmorphism & Hover States */
+/* 2. Cyber Glassmorphism Card Style */
 .cyber-glass {
-    background: rgba(11, 17, 32, 0.85);
+    background: rgba(15, 23, 42, 0.85);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(22, 34, 56, 0.8);
-    transition: all 0.2s ease-in-out;
+    border: 1px solid rgba(30, 41, 59, 0.8);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cyber-glass:hover {
-    border-color: rgba(0, 240, 255, 0.4) !important;
-    box-shadow: 0 0 20px rgba(0, 240, 255, 0.1) !important;
+    border-color: rgba(6, 182, 212, 0.6) !important;
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.15), 0 10px 25px -5px rgba(0, 0, 0, 0.5) !important;
     transform: translateY(-2px);
 }
 
-/* Fix Hover & Pointer Events */
 button, a, input, select, textarea {
     cursor: pointer !important;
 }
 
-/* Light Theme Engine Fix */
+/* 3. Controlled Light Theme Override */
 .light-mode {
-    background-color: #f8fafc !important;
+    background-color: #f1f5f9 !important;
     color: #0f172a !important;
 }
 
-.light-mode header,
-.light-mode aside,
+.light-mode main {
+    background-color: #f1f5f9 !important;
+}
+
+.light-mode aside, 
+.light-mode header, 
 .light-mode footer,
-.light-mode .cyber-glass,
-.light-mode div[class*="bg-[#0B1120]"] {
+.light-mode .cyber-glass {
     background-color: #ffffff !important;
     border-color: #cbd5e1 !important;
     color: #0f172a !important;
 }
 
-.light-mode h1, .light-mode h2, .light-mode h3, .light-mode h4, .light-mode span, .light-mode p, .light-mode label, .light-mode td, .light-mode th {
+.light-mode h1, .light-mode h2, .light-mode h3, .light-mode h4, .light-mode p, .light-mode span, .light-mode label, .light-mode td, .light-mode th {
     color: #0f172a !important;
 }
 
 .light-mode input, .light-mode textarea, .light-mode select {
-    background-color: #f1f5f9 !important;
-    border-color: #cbd5e1 !important;
+    background-color: #f8fafc !important;
     color: #0f172a !important;
-}
-
-.light-mode div[class*="bg-[#070C18]"], .light-mode div[class*="bg-[#050811]"] {
-    background-color: #f1f5f9 !important;
-    border-color: #e2e8f0 !important;
+    border-color: #cbd5e1 !important;
 }

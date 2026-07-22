@@ -3,9 +3,10 @@ let scanLogs = JSON.parse(localStorage.getItem('cyberguard_logs') || '[]');
 let currentTab = 'url';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Theme Toggle
+    // 1. Theme Toggle Setup
     const themeSelect = document.getElementById('theme-select');
     if (themeSelect) {
+        themeSelect.value = 'dark'; // Force dark default on load
         themeSelect.addEventListener('change', (e) => {
             const root = document.getElementById('mainHtmlRoot');
             if (e.target.value === 'light') {
@@ -18,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Navigation Links
+    // 2. Navigation Active State Handling
     document.querySelectorAll('nav a').forEach(link => {
         link.addEventListener('click', function () {
             document.querySelectorAll('nav a').forEach(l => l.classList.remove('bg-cyan-500/10', 'text-cyan-400', 'border', 'border-cyan-500/20', 'font-bold'));
@@ -26,11 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Initial Load Calls
     updateTelemetryStats();
     renderLogsTable();
 });
 
-// Tab Switcher
+// Tab Switcher Engine
 function switchTab(tab) {
     currentTab = tab;
     document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -42,7 +44,7 @@ function switchTab(tab) {
     }
 }
 
-// Detection Engine
+// Threat Detection Heuristics Engine
 function runAnalysisCheck() {
     const inputField = document.getElementById('payload-input');
     const rawVal = inputField ? inputField.value.trim() : '';
@@ -63,7 +65,7 @@ function runAnalysisCheck() {
         flags.push("CRITICAL: Typosquatting/Spoofed Domain Extension Detected.");
     }
 
-    // Subdomains & Hyphens
+    // Subdomains & Hyphens Analysis
     if ((lower.match(/\./g) || []).length >= 3) {
         riskScore += 30;
         flags.push("WARNING: High Subdomain nesting depth.");
@@ -73,13 +75,13 @@ function runAnalysisCheck() {
         flags.push("SUSPICIOUS: Multiple hyphens used in domain.");
     }
 
-    // Raw IP Check
+    // Direct IP Address Pattern Matcher
     if (/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(lower.replace(/http(s)?:\/\//, '').split('/')[0])) {
         riskScore += 85;
         flags.push("DANGEROUS: Direct IP hosting instead of legitimate domain.");
     }
 
-    // Urgent Keywords
+    // Urgent Social-Engineering Keywords
     const urgentKeywords = ['verify', 'blocked', 'urgent', 'kyc', 'suspend', 'update-password', 'secure-login', 'bank', 'free-gift'];
     let keywordHits = 0;
     urgentKeywords.forEach(kw => {
@@ -99,7 +101,7 @@ function runAnalysisCheck() {
 
     if (flags.length === 0) flags.push("No structural anomalies or malicious indicators detected.");
 
-    // Update Logs
+    // Write to Local State
     const newEntry = {
         id: Date.now(),
         time: new Date().toLocaleTimeString(),
@@ -113,7 +115,7 @@ function runAnalysisCheck() {
     scanLogs.unshift(newEntry);
     localStorage.setItem('cyberguard_logs', JSON.stringify(scanLogs));
 
-    // Render Results
+    // Update Output Sandbox View
     document.getElementById('output-idle')?.classList.add('hidden');
     const resContainer = document.getElementById('output-results');
     resContainer?.classList.remove('hidden');
@@ -141,7 +143,7 @@ function runAnalysisCheck() {
     renderLogsTable();
 }
 
-// Telemetry Stats
+// Update Telemetry Counters
 function updateTelemetryStats() {
     const total = scanLogs.length;
     const clean = scanLogs.filter(l => l.status === 'CLEAN').length;
@@ -155,7 +157,7 @@ function updateTelemetryStats() {
     if (document.getElementById('vector-count')) document.getElementById('vector-count').innerText = total;
 }
 
-// Table Logs
+// Render Local Storage Telemetry Table
 function renderLogsTable() {
     const filter = (document.getElementById('filter-logs')?.value || '').toLowerCase();
     const tbody = document.getElementById('logs-table-body');
@@ -199,7 +201,7 @@ function wipeLogs() {
     renderLogsTable();
 }
 
-// Password Entropy Test
+// Password Strength Sandbox
 function testPasswordEntropy() {
     const input = document.getElementById('pass-test-input').value;
     const scoreText = document.getElementById('pass-entropy-score');
@@ -223,7 +225,7 @@ function testPasswordEntropy() {
     bar.className = score >= 75 ? "bg-emerald-400 h-1.5 rounded-full transition-all" : (score >= 40 ? "bg-amber-400 h-1.5 rounded-full transition-all" : "bg-red-500 h-1.5 rounded-full transition-all");
 }
 
-// 🎯 Interactive Knowledge Check Quiz Loop Engine
+// Interactive Knowledge Check Loop Quiz
 const quizData = [
     {
         q: "A link says 'http://login.sbi.com.secure-verify.orrg.in'. Is this official?",
@@ -304,7 +306,7 @@ function finishQuizLoop() {
     }
 }
 
-// AI Chatbot Toggle
+// AI Chatbot Interface
 function toggleAiChat() {
     document.getElementById('ai-chat-modal')?.classList.toggle('hidden');
 }
@@ -312,7 +314,7 @@ function toggleAiChat() {
 function sendAiMessage() {
     const input = document.getElementById('ai-chat-input');
     const messages = document.getElementById('ai-chat-messages');
-    const text = input.value.trim();
+    const text = input ? input.value.trim() : '';
 
     if (!text) return;
 
