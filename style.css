@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
-/* Core Colors & Animated Grid */
+/* Base Styling */
 body {
     background-color: #050811;
     font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
     color: #f1f5f9;
 }
 
+/* Background Grid Overlay */
 .bg-cyber-grid {
     background-size: 32px 32px;
     background-image: 
@@ -14,7 +15,7 @@ body {
         linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
 
-/* Glassmorphism Cards */
+/* Cyber Glassmorphism Layout */
 .cyber-glass {
     background: rgba(11, 17, 32, 0.85);
     backdrop-filter: blur(12px);
@@ -28,18 +29,44 @@ body {
     transform: translateY(-2px);
 }
 
+/* Soft, Eye-Soothing Top Status Badge */
+.shield-badge {
+    background-color: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    color: #34d399;
+}
+
 button, a, input, select, textarea {
     cursor: pointer !important;
 }
 
-/* ☀️ COMPLETE LIGHT THEME OVERRIDE ENGINE */
+/* Parameter Check Badges */
+.badge-valid {
+    background-color: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-invalid {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.badge-warning {
+    background-color: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* Light Mode Overrides */
 .light-mode {
-    background-color: #f1f5f9 !important;
+    background-color: #f8fafc !important;
     color: #0f172a !important;
 }
 
 .light-mode main {
-    background-color: #f1f5f9 !important;
+    background-color: #f8fafc !important;
 }
 
 .light-mode aside, 
@@ -50,15 +77,20 @@ button, a, input, select, textarea {
     background-color: #ffffff !important;
     border-color: #cbd5e1 !important;
     color: #0f172a !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04) !important;
 }
 
 .light-mode .cyber-glass:hover {
     border-color: #0284c7 !important;
-    box-shadow: 0 8px 25px rgba(2, 132, 199, 0.15) !important;
+    box-shadow: 0 8px 25px rgba(2, 132, 199, 0.12) !important;
 }
 
-/* Nested Inner Blocks In Light Theme */
+.light-mode .shield-badge {
+    background-color: #f0fdf4 !important;
+    border-color: #bbf7d0 !important;
+    color: #15803d !important;
+}
+
 .light-mode .inner-box,
 .light-mode .user-card-block,
 .light-mode .bot-modal-header,
@@ -66,7 +98,7 @@ button, a, input, select, textarea {
 .light-mode div[class*="bg-[#070C18]"],
 .light-mode div[class*="bg-[#050811]"],
 .light-mode div[class*="bg-[#0B1120]"] {
-    background-color: #f8fafc !important;
+    background-color: #f1f5f9 !important;
     border-color: #e2e8f0 !important;
     color: #0f172a !important;
 }
@@ -84,7 +116,6 @@ button, a, input, select, textarea {
     color: #94a3b8 !important;
 }
 
-/* Typography Colors in Light Mode */
 .light-mode h1, 
 .light-mode h2, 
 .light-mode h3, 

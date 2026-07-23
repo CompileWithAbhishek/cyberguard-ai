@@ -1,12 +1,12 @@
-// Local Database & State
+// Local Database & State Management
 let scanLogs = JSON.parse(localStorage.getItem('cyberguard_logs') || '[]');
 let currentTab = 'url';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Theme Toggle Controller
+    // Theme Switcher Controller
     const themeSelect = document.getElementById('theme-select');
     if (themeSelect) {
-        themeSelect.value = 'dark'; // Dark default on start
+        themeSelect.value = 'dark';
         themeSelect.addEventListener('change', (e) => {
             const root = document.getElementById('mainHtmlRoot');
             if (e.target.value === 'light') {
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Nav Highlight
+    // Navigation Active Highlighting
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function () {
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('bg-cyan-500/10', 'text-cyan-400', 'border', 'border-cyan-500/20', 'font-bold'));
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderLogsTable();
 });
 
-// Tab Switcher
+// Category Switcher
 function switchTab(tab) {
     currentTab = tab;
     document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -43,85 +43,162 @@ function switchTab(tab) {
     }
 }
 
-// Full Phishing Analysis Engine
+// Multi-Vector Granular Threat Inspection Engine
 function runAnalysisCheck() {
     const inputField = document.getElementById('payload-input');
     const rawVal = inputField ? inputField.value.trim() : '';
 
     if (!rawVal) {
-        alert("Enter a URL, email string, or SMS payload first.");
+        alert("Please enter a link, email, SMS text, or QR payload first.");
         return;
     }
 
     let riskScore = 0;
-    let flags = [];
+    let checks = [];
     const lower = rawVal.toLowerCase();
 
-    // 1. Email Typosquatting Check (abisingh@gmmail.com, gmai.com, etc.)
-    const emailTypoPattern = /@(gmmail|gmai|gmaill|yaho|yahool|hotmial|outlok|outloo)\./;
-    if (emailTypoPattern.test(lower)) {
-        riskScore += 85;
-        flags.push("CRITICAL: Email Provider Typosquatting / Spoofed Domain Detected.");
+    // Standard Legitimate Providers
+    const standardDomains = [
+        'gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com', 'icloud.com', 'proton.me',
+        'google.com', 'microsoft.com', 'github.com', 'gov.in', 'nic.in', 'sbi.co.in', 'hdfcbank.com', 'example.com'
+    ];
+
+    // Extraction helper
+    function getCleanDomain(str) {
+        let clean = str.replace(/^(https?:\/\/)?(www\.)?/, '').split('/')[0].split('?')[0];
+        if (clean.includes('@')) clean = clean.split('@')[1];
+        return clean.trim();
     }
 
-    // 2. URL Extension Typosquatting Check (.orrg, .govv, etc.)
-    const typoPattern = /\.(orrg|govv|cm|nett|coo|infoo|xyz|top|zip|work|click)\b/;
-    if (typoPattern.test(lower)) {
-        riskScore += 80;
-        flags.push("CRITICAL: Typosquatting/Spoofed Domain Extension Detected.");
-    }
+    const domain = getCleanDomain(lower);
 
-    // 3. Subdomains & Hyphens
-    if ((lower.match(/\./g) || []).length >= 3) {
-        riskScore += 30;
-        flags.push("WARNING: High Subdomain nesting depth.");
-    }
-    if ((lower.match(/-/g) || []).length >= 2) {
-        riskScore += 20;
-        flags.push("SUSPICIOUS: Multiple hyphens used in domain.");
-    }
+    // Dynamic Parameter Check Engine per Vector Tab
+    if (currentTab === 'email') {
+        // 1. Syntax Format Check
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const validSyntax = emailRegex.test(rawVal);
+        checks.push({
+            title: "Format & Syntax",
+            status: validSyntax ? "valid" : "invalid",
+            desc: validSyntax ? "Email address is formatted correctly." : "Invalid email format or malformed string."
+        });
+        if (!validSyntax) riskScore += 40;
 
-    // 4. Raw IP Check
-    if (/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(lower.replace(/http(s)?:\/\//, '').split('/')[0])) {
-        riskScore += 85;
-        flags.push("DANGEROUS: Direct IP hosting instead of legitimate domain.");
-    }
+        // 2. Domain & Typosquatting Check
+        const typos = ['gmmail', 'gmaill', 'yaho', 'hotmial', 'outlok', 'govv', 'orrg'];
+        const isTypo = typos.some(t => lower.includes(t));
+        checks.push({
+            title: "Domain Status",
+            status: isTypo ? "invalid" : "valid",
+            desc: isTypo ? "Domain name shows typosquatting or spoofing indicators." : "Domain structure matches legitimate registers."
+        });
+        if (isTypo) riskScore += 85;
 
-    // 5. Urgent Keywords
-    const urgentKeywords = ['verify', 'blocked', 'urgent', 'kyc', 'suspend', 'update-password', 'secure-login', 'bank', 'free-gift'];
-    let keywordHits = 0;
-    urgentKeywords.forEach(kw => {
-        if (lower.includes(kw)) keywordHits++;
-    });
+        // 3. Provider Type
+        const isStandard = standardDomains.includes(domain);
+        checks.push({
+            title: "Provider Reputation",
+            status: isStandard ? "valid" : (isTypo ? "invalid" : "warning"),
+            desc: isStandard ? "Recognized standard email webmail provider." : "Custom, unverified, or potentially risky domain."
+        });
+        if (!isStandard && !isTypo) riskScore += 20;
 
-    if (keywordHits > 0) {
-        riskScore += (keywordHits * 25);
-        flags.push(`SUSPICIOUS: Found ${keywordHits} social-engineering/urgency triggers.`);
+    } else if (currentTab === 'url') {
+        // 1. Protocol Safety
+        const isHttps = lower.startsWith('https://');
+        checks.push({
+            title: "Protocol Security",
+            status: isHttps ? "valid" : "warning",
+            desc: isHttps ? "Encrypted connection protocol (HTTPS)." : "Insecure HTTP or missing protocol header."
+        });
+        if (!isHttps) riskScore += 25;
+
+        // 2. Extension & Typosquatting
+        const badExt = /\.(orrg|govv|cm|nett|coo|infoo|xyz|top|zip|click)\b/;
+        const typoDomain = badExt.test(lower);
+        checks.push({
+            title: "TLD & Extension Authenticity",
+            status: typoDomain ? "invalid" : "valid",
+            desc: typoDomain ? "Detected spoofed domain extension (.orrg, .govv, etc.)." : "Standard extension structure."
+        });
+        if (typoDomain) riskScore += 85;
+
+        // 3. IP Hosting Check
+        const isRawIp = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(domain);
+        checks.push({
+            title: "Host Address Type",
+            status: isRawIp ? "invalid" : "valid",
+            desc: isRawIp ? "Direct IP address usage detected (High phishing risk)." : "Standard domain name resolution."
+        });
+        if (isRawIp) riskScore += 85;
+
+    } else if (currentTab === 'sms') {
+        // 1. Social Engineering Triggers
+        const urgents = ['urgent', 'blocked', 'verify', 'kyc', 'suspend', 'lottery', 'winner', 'click here'];
+        let foundUrgent = urgents.filter(u => lower.includes(u));
+        checks.push({
+            title: "Urgency & Phishing Triggers",
+            status: foundUrgent.length > 0 ? "invalid" : "valid",
+            desc: foundUrgent.length > 0 ? `Found social-engineering keywords: ${foundUrgent.join(', ')}.` : "No panic/urgency triggers detected."
+        });
+        if (foundUrgent.length > 0) riskScore += (foundUrgent.length * 30);
+
+        // 2. Embedded Link Risk
+        const hasLink = /https?:\/\/[^\s]+/.test(lower) || /\.[a-z]{2,4}\b/.test(lower);
+        checks.push({
+            title: "Embedded Link Check",
+            status: hasLink ? "warning" : "valid",
+            desc: hasLink ? "Contains embedded web URL inside message payload." : "Plain text message without external URLs."
+        });
+        if (hasLink) riskScore += 20;
+
+    } else if (currentTab === 'qr') {
+        // 1. QR Payload Type
+        const isUrlPayload = lower.startsWith('http://') || lower.startsWith('https://');
+        checks.push({
+            title: "Payload Encoding Type",
+            status: "valid",
+            desc: isUrlPayload ? "QR code resolves to web URL target." : "QR code contains plain string/data."
+        });
+
+        // 2. Redirect / Suspicious Target
+        const suspiciousQr = /(govv|orrg|gmmail|192\.168|0\.0\.0\.0|apk)/.test(lower);
+        checks.push({
+            title: "Target Destination Safety",
+            status: suspiciousQr ? "invalid" : "valid",
+            desc: suspiciousQr ? "QR payload redirects to suspicious or untrusted target." : "No malicious redirect triggers detected."
+        });
+        if (suspiciousQr) riskScore += 85;
     }
 
     if (riskScore > 100) riskScore = 100;
 
+    // Severity Assessment
     let status = "CLEAN";
     if (riskScore >= 60) status = "DANGEROUS";
     else if (riskScore >= 20) status = "SUSPICIOUS";
 
-    if (flags.length === 0) flags.push("No structural anomalies or malicious indicators detected.");
+    // Whitelist bypass for standard safe entries
+    if (standardDomains.includes(domain) && riskScore < 40) {
+        status = "CLEAN";
+        riskScore = 0;
+    }
 
-    // Write to Local Logs
+    // Save Log
     const newEntry = {
         id: Date.now(),
         time: new Date().toLocaleTimeString(),
         vector: currentTab.toUpperCase(),
-        payload: rawVal.length > 40 ? rawVal.substring(0, 40) + '...' : rawVal,
+        payload: rawVal.length > 35 ? rawVal.substring(0, 35) + '...' : rawVal,
         status: status,
         score: riskScore,
-        flags: flags
+        checks: checks
     };
 
     scanLogs.unshift(newEntry);
     localStorage.setItem('cyberguard_logs', JSON.stringify(scanLogs));
 
-    // Display Output
+    // Render Output Breakdown Card
     document.getElementById('output-idle')?.classList.add('hidden');
     const resContainer = document.getElementById('output-results');
     resContainer?.classList.remove('hidden');
@@ -135,13 +212,19 @@ function runAnalysisCheck() {
     const scoreEl = document.getElementById('res-score');
     if (scoreEl) scoreEl.innerText = `${riskScore}%`;
 
-    const logsList = document.getElementById('res-logs');
-    if (logsList) {
-        logsList.innerHTML = flags.map(f => `
-            <li class="flex items-start space-x-2 text-xs">
-                <i class="fa-solid ${status === 'CLEAN' ? 'fa-check text-emerald-400' : 'fa-triangle-exclamation text-amber-400'} mt-0.5"></i>
-                <span>${f}</span>
-            </li>
+    // Render Detailed Breakdown Steps
+    const breakdownContainer = document.getElementById('res-breakdown');
+    if (breakdownContainer) {
+        breakdownContainer.innerHTML = checks.map(c => `
+            <div class="p-3 rounded-xl border border-slate-800/80 bg-[#050811]/60 inner-box space-y-1">
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-slate-200">${c.title}</span>
+                    <span class="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase ${c.status === 'valid' ? 'badge-valid' : (c.status === 'invalid' ? 'badge-invalid' : 'badge-warning')}">
+                        ${c.status}
+                    </span>
+                </div>
+                <p class="text-[11px] text-slate-400 desc-text">${c.desc}</p>
+            </div>
         `).join('');
     }
 
@@ -163,7 +246,7 @@ function updateTelemetryStats() {
     if (document.getElementById('vector-count')) document.getElementById('vector-count').innerText = total;
 }
 
-// Table Logs
+// Local Storage Table Render
 function renderLogsTable() {
     const filter = (document.getElementById('filter-logs')?.value || '').toLowerCase();
     const tbody = document.getElementById('logs-table-body');
@@ -207,7 +290,7 @@ function wipeLogs() {
     renderLogsTable();
 }
 
-// Password Entropy Sandbox
+// Password Entropy Test
 function testPasswordEntropy() {
     const input = document.getElementById('pass-test-input').value;
     const scoreText = document.getElementById('pass-entropy-score');
@@ -231,7 +314,7 @@ function testPasswordEntropy() {
     bar.className = score >= 75 ? "bg-emerald-400 h-1.5 rounded-full transition-all" : (score >= 40 ? "bg-amber-400 h-1.5 rounded-full transition-all" : "bg-red-500 h-1.5 rounded-full transition-all");
 }
 
-// Interactive Knowledge Quiz Loop
+// Knowledge Check Quiz Loop
 const quizData = [
     {
         q: "A link says 'http://login.sbi.com.secure-verify.orrg.in'. Is this official?",

@@ -25,7 +25,7 @@
 </head>
 <body class="bg-[#050811] text-slate-100 font-sans antialiased min-h-screen flex bg-cyber-grid">
 
-    <!-- LEFT SIDEBAR NAVIGATION -->
+    <!-- Sidebar Navigation -->
     <aside class="w-64 fixed inset-y-0 left-0 z-50 bg-[#070C18]/90 backdrop-blur-xl border-r border-slate-800/80 p-5 flex flex-col justify-between hidden lg:flex">
         <div class="space-y-8">
             <div class="flex items-center space-x-3 px-1">
@@ -85,30 +85,30 @@
         </div>
     </aside>
 
-    <!-- RIGHT MAIN WORKSPACE -->
+    <!-- Main Workspace -->
     <div class="flex-1 lg:ml-64 flex flex-col justify-between min-h-screen w-full">
 
-        <!-- HEADER -->
+        <!-- Top Header -->
         <header class="h-16 border-b border-slate-800/60 px-6 lg:px-8 flex items-center justify-between bg-[#050811]/80 backdrop-blur-md sticky top-0 z-40">
             <div class="flex-1 max-w-md">
                 <div class="relative">
                     <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-xs text-slate-500"></i>
-                    <input type="text" placeholder="Search (press Enter)... e.g., scanner, logs, tools" class="w-full bg-[#0B1120] border border-slate-800/80 rounded-xl pl-9 pr-4 py-2 text-xs font-mono text-slate-300 focus:outline-none focus:border-cyan-500 transition">
+                    <input type="text" placeholder="Search modules... e.g., scanner, logs, tools" class="w-full bg-[#0B1120] border border-slate-800/80 rounded-xl pl-9 pr-4 py-2 text-xs font-mono text-slate-300 focus:outline-none focus:border-cyan-500 transition">
                 </div>
             </div>
 
             <div class="flex items-center space-x-4">
-                <div class="flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[11px] font-mono font-bold tracking-wider">
-                    <i class="fa-solid fa-circle text-[6px] animate-ping"></i>
+                <div class="shield-badge flex items-center space-x-2 px-3 py-1 rounded-full text-[11px] font-mono font-semibold tracking-wide">
+                    <i class="fa-solid fa-circle text-[6px] text-emerald-400/80"></i>
                     <span>SECURE SHIELD ACTIVE</span>
                 </div>
             </div>
         </header>
 
-        <!-- MAIN CONTENT CONTAINER -->
+        <!-- Main Content Grid -->
         <main class="p-4 sm:p-6 lg:p-8 space-y-8 max-w-7xl mx-auto w-full">
 
-            <!-- HERO SECTION -->
+            <!-- Hero Section -->
             <div id="home" class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
                 <div class="lg:col-span-2 cyber-glass rounded-2xl p-6 lg:p-8 relative flex flex-col justify-between shadow-xl">
                     <div class="space-y-4">
@@ -120,7 +120,7 @@
                             <span class="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">Data Links & Parameters</span>
                         </h1>
                         <p class="text-slate-400 text-xs sm:text-sm max-w-xl leading-relaxed desc-text">
-                            Check suspicious text fields, emails templates, QR links, and strings payloads against local matching rules frameworks inside clean isolated browser sandbox blocks.
+                            Inspect web URLs, email strings, SMS text messages, and QR code payloads inside an isolated client-side security environment with detailed parameter breakdown.
                         </p>
                     </div>
 
@@ -152,30 +152,30 @@
                 </div>
             </div>
 
-            <!-- CORE SCANNER SECTION -->
+            <!-- Core Threat Scanner with Granular Parameter Verification -->
             <div id="scanner" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="lg:col-span-2 cyber-glass rounded-2xl p-6 shadow-xl space-y-5">
                     <div class="flex flex-wrap gap-2 border-b border-slate-800/80 pb-3 font-mono text-xs theme-border-divider">
-                        <button id="tab-url" onclick="switchTab('url')" class="tab-btn px-4 py-2 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold flex items-center space-x-2">
+                        <button id="tab-url" onclick="switchTab('url')" class="tab-btn px-4 py-2 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold flex items-center space-x-2 cursor-pointer">
                             <i class="fa-solid fa-link text-xs"></i> <span>URL</span>
                         </button>
-                        <button id="tab-email" onclick="switchTab('email')" class="tab-btn px-4 py-2 rounded-xl text-slate-400 hover:text-slate-200 flex items-center space-x-2">
+                        <button id="tab-email" onclick="switchTab('email')" class="tab-btn px-4 py-2 rounded-xl text-slate-400 hover:text-slate-200 flex items-center space-x-2 cursor-pointer">
                             <i class="fa-solid fa-envelope text-xs"></i> <span>EMAIL</span>
                         </button>
-                        <button id="tab-sms" onclick="switchTab('sms')" class="tab-btn px-4 py-2 rounded-xl text-slate-400 hover:text-slate-200 flex items-center space-x-2">
+                        <button id="tab-sms" onclick="switchTab('sms')" class="tab-btn px-4 py-2 rounded-xl text-slate-400 hover:text-slate-200 flex items-center space-x-2 cursor-pointer">
                             <i class="fa-solid fa-comment-sms text-xs"></i> <span>SMS</span>
                         </button>
-                        <button id="tab-qr" onclick="switchTab('qr')" class="tab-btn px-4 py-2 rounded-xl text-slate-400 hover:text-slate-200 flex items-center space-x-2">
+                        <button id="tab-qr" onclick="switchTab('qr')" class="tab-btn px-4 py-2 rounded-xl text-slate-400 hover:text-slate-200 flex items-center space-x-2 cursor-pointer">
                             <i class="fa-solid fa-qrcode text-xs"></i> <span>QR CONTENT</span>
                         </button>
                     </div>
 
                     <div class="space-y-2">
                         <label for="payload-input" class="block text-[10px] font-mono text-slate-400 uppercase tracking-widest subtext-label">PAYLOAD RAW TEXT DATA</label>
-                        <textarea id="payload-input" rows="4" class="w-full bg-[#050811] border border-slate-800 rounded-xl p-4 text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-500 transition placeholder:text-slate-600 resize-none" placeholder="Insert suspicious URL, email (e.g. abisingh@gmmail.com), or SMS payload..."></textarea>
+                        <textarea id="payload-input" rows="4" class="w-full bg-[#050811] border border-slate-800 rounded-xl p-4 text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-500 transition placeholder:text-slate-600 resize-none" placeholder="Enter link or text... e.g. user@example.com, https://google.com, or SMS payload..."></textarea>
                     </div>
 
-                    <button onclick="runAnalysisCheck()" class="w-full py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black rounded-xl transition text-xs tracking-wider uppercase flex items-center justify-center space-x-2 shadow-lg shadow-cyan-500/10">
+                    <button onclick="runAnalysisCheck()" class="w-full py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black rounded-xl transition text-xs tracking-wider uppercase flex items-center justify-center space-x-2 shadow-lg shadow-cyan-500/10 cursor-pointer">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <span>INITIALIZE ANALYSIS CHECK</span>
                     </button>
@@ -185,7 +185,7 @@
                     <div id="output-idle" class="my-auto text-center space-y-3 py-8">
                         <div class="text-4xl text-slate-600"><i class="fa-solid fa-terminal"></i></div>
                         <h4 class="text-sm font-bold text-slate-300 card-heading">Scanner Engine Idle</h4>
-                        <p class="text-xs text-slate-500 font-mono max-w-xs mx-auto subtext-label">Input target characters inside form tracking block to evaluate results telemetry charts.</p>
+                        <p class="text-xs text-slate-500 font-mono max-w-xs mx-auto subtext-label">Paste any target input string above to run multi-parameter risk checks.</p>
                     </div>
 
                     <div id="output-results" class="hidden space-y-4">
@@ -200,15 +200,16 @@
                             </div>
                         </div>
 
-                        <div class="space-y-2">
-                            <span class="text-[10px] font-mono text-slate-500 uppercase block subtext-label">DIAGNOSTIC LOGS</span>
-                            <ul id="res-logs" class="space-y-2 font-mono text-slate-300"></ul>
+                        <!-- Granular Parameter Breakdown List -->
+                        <div class="space-y-3">
+                            <span class="text-[10px] font-mono text-slate-500 uppercase block subtext-label">SECURITY VERIFICATION BREAKDOWN</span>
+                            <div id="res-breakdown" class="space-y-3 font-mono text-xs"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- TELEMETRY MATRIX -->
+            <!-- Telemetry Matrix -->
             <div id="telemetry" class="cyber-glass rounded-2xl p-6 shadow-xl space-y-4">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
@@ -218,7 +219,7 @@
                         <h3 class="text-lg font-bold text-white mt-1 card-heading">Interactive Sandbox Diagnostic Controller</h3>
                     </div>
                     <div class="flex items-center space-x-3 text-xs font-mono">
-                        <button onclick="runDiagnosticTest()" class="px-4 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 font-bold transition">Run Diagnostics</button>
+                        <button onclick="runDiagnosticTest()" class="px-4 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 font-bold transition cursor-pointer">Run Diagnostics</button>
                     </div>
                 </div>
 
@@ -242,7 +243,7 @@
                 </div>
             </div>
 
-            <!-- STORAGE & CACHE REGISTERS -->
+            <!-- Storage Logs -->
             <div id="storage" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="cyber-glass rounded-2xl p-6 shadow-xl flex flex-col justify-between">
                     <span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold block subtext-label">PROPORTIONS VECTOR</span>
@@ -259,7 +260,7 @@
                 <div class="lg:col-span-2 cyber-glass rounded-2xl p-6 shadow-xl space-y-4">
                     <div class="flex justify-between items-center">
                         <span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold subtext-label">LOCALSTORAGE CACHE LOGS</span>
-                        <button onclick="wipeLogs()" class="px-3 py-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 rounded-lg text-xs font-mono font-bold transition">Wipe Data</button>
+                        <button onclick="wipeLogs()" class="px-3 py-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 rounded-lg text-xs font-mono font-bold transition cursor-pointer">Wipe Data</button>
                     </div>
 
                     <div class="overflow-x-auto">
@@ -279,14 +280,14 @@
                 </div>
             </div>
 
-            <!-- TOOLS SANDBOX & DIAGNOSTICS -->
+            <!-- Tools & Quiz -->
             <div id="tools" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="cyber-glass rounded-2xl p-6 shadow-xl space-y-4">
                     <h4 class="text-base font-bold text-white card-heading flex items-center space-x-2">
                         <i class="fa-solid fa-key text-red-400"></i>
                         <span>Password Entropy Sandbox</span>
                     </h4>
-                    <input type="password" id="pass-test-input" oninput="testPasswordEntropy()" placeholder="Insert test key password..." class="w-full bg-[#050811] border border-slate-800 rounded-xl p-3 text-xs font-mono text-cyan-300 focus:outline-none">
+                    <input type="password" id="pass-test-input" oninput="testPasswordEntropy()" placeholder="Test password strength here..." class="w-full bg-[#050811] border border-slate-800 rounded-xl p-3 text-xs font-mono text-cyan-300 focus:outline-none">
                     <div class="flex justify-between items-center text-xs font-mono">
                         <span class="text-slate-500 subtext-label">Resilience Index:</span>
                         <span id="pass-entropy-score" class="font-bold text-slate-400 desc-text">0% – Awaiting Entry</span>
@@ -302,12 +303,12 @@
                             <i class="fa-solid fa-graduation-cap text-cyan-400"></i>
                             <span>Knowledge Check Loop</span>
                         </h4>
-                        <p class="text-xs text-slate-400 font-mono mt-0.5 subtext-label">Evaluate vector processing verification capabilities parameters.</p>
+                        <p class="text-xs text-slate-400 font-mono mt-0.5 subtext-label">Interactive threat recognition quiz module.</p>
                     </div>
 
                     <div id="quiz-container" class="my-auto py-3 space-y-3">
                         <p id="quiz-question-text" class="text-xs text-slate-300 font-mono leading-relaxed desc-text">
-                            Activate verification testing patterns logic module to test your phishing threat recognition skills.
+                            Start the verification loop to test your phishing awareness.
                         </p>
 
                         <div id="quiz-options" class="hidden space-y-2 pt-1"></div>
@@ -321,7 +322,7 @@
                 </div>
             </div>
 
-            <!-- FOOTER -->
+            <!-- Footer -->
             <footer class="pt-10 pb-6 border-t border-slate-800/60 font-mono text-xs space-y-6 theme-border-divider">
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-slate-400">
                     <div>
@@ -359,14 +360,14 @@
         </main>
     </div>
 
-    <!-- FLOATING AI BOT BUTTON -->
+    <!-- Floating Bot Button -->
     <div class="fixed bottom-6 right-6 z-50">
         <button onclick="toggleAiChat()" class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 text-white flex items-center justify-center text-xl shadow-2xl hover:scale-105 transition cursor-pointer">
             <i class="fa-solid fa-robot"></i>
         </button>
     </div>
 
-    <!-- AI CHATBOT MODAL -->
+    <!-- Bot Window Modal -->
     <div id="ai-chat-modal" class="hidden fixed bottom-20 right-6 w-80 sm:w-96 bg-[#0B1120] border border-slate-800 rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col h-96 bot-modal-window">
         <div class="bg-[#070C18] p-3 border-b border-slate-800 flex justify-between items-center bot-modal-header">
             <div class="flex items-center space-x-2 text-xs font-bold text-cyan-400">
@@ -376,7 +377,7 @@
             <button onclick="toggleAiChat()" class="text-slate-500 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div id="ai-chat-messages" class="flex-1 p-3 overflow-y-auto space-y-2 text-xs font-mono">
-            <div class="text-left"><span class="inline-block bg-slate-800 text-cyan-300 p-2.5 rounded-xl border border-slate-700 chat-bubble-bot">Hello Abhishek! I am CyberGuard AI Agent. Ask me about suspicious URLs, email typos, or threat flags.</span></div>
+            <div class="text-left"><span class="inline-block bg-slate-800 text-cyan-300 p-2.5 rounded-xl border border-slate-700 chat-bubble-bot">Hello Abhishek! I am CyberGuard AI Agent. Ask me anything about URLs or threat flags.</span></div>
         </div>
         <div class="p-2 bg-[#070C18] border-t border-slate-800 flex space-x-2 bot-modal-footer">
             <input type="text" id="ai-chat-input" placeholder="Ask AI..." class="flex-1 bg-[#050811] border border-slate-800 rounded-lg px-3 py-1.5 text-xs font-mono text-slate-200 focus:outline-none">
