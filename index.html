@@ -88,7 +88,7 @@
     <!-- Main Workspace -->
     <div class="flex-1 lg:ml-64 flex flex-col justify-between min-h-screen w-full">
 
-        <!-- Top Header -->
+        <!-- Header -->
         <header class="h-16 border-b border-slate-800/60 px-6 lg:px-8 flex items-center justify-between bg-[#050811]/80 backdrop-blur-md sticky top-0 z-40">
             <div class="flex-1 max-w-md">
                 <div class="relative">
@@ -105,7 +105,7 @@
             </div>
         </header>
 
-        <!-- Main Content Grid -->
+        <!-- Main Content -->
         <main class="p-4 sm:p-6 lg:p-8 space-y-8 max-w-7xl mx-auto w-full">
 
             <!-- Hero Section -->
@@ -152,7 +152,7 @@
                 </div>
             </div>
 
-            <!-- Core Threat Scanner with Granular Parameter Verification -->
+            <!-- Core Scanner -->
             <div id="scanner" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="lg:col-span-2 cyber-glass rounded-2xl p-6 shadow-xl space-y-5">
                     <div class="flex flex-wrap gap-2 border-b border-slate-800/80 pb-3 font-mono text-xs theme-border-divider">
@@ -172,7 +172,7 @@
 
                     <div class="space-y-2">
                         <label for="payload-input" class="block text-[10px] font-mono text-slate-400 uppercase tracking-widest subtext-label">PAYLOAD RAW TEXT DATA</label>
-                        <textarea id="payload-input" rows="4" class="w-full bg-[#050811] border border-slate-800 rounded-xl p-4 text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-500 transition placeholder:text-slate-600 resize-none" placeholder="Enter link or text... e.g. user@example.com, https://google.com, or SMS payload..."></textarea>
+                        <textarea id="payload-input" rows="4" class="w-full bg-[#050811] border border-slate-800 rounded-xl p-4 text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-500 transition placeholder:text-slate-600 resize-none" placeholder="Enter link or text... e.g. cbse.nic.in, user@example.com, or SMS text..."></textarea>
                     </div>
 
                     <button onclick="runAnalysisCheck()" class="w-full py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black rounded-xl transition text-xs tracking-wider uppercase flex items-center justify-center space-x-2 shadow-lg shadow-cyan-500/10 cursor-pointer">
@@ -200,7 +200,6 @@
                             </div>
                         </div>
 
-                        <!-- Granular Parameter Breakdown List -->
                         <div class="space-y-3">
                             <span class="text-[10px] font-mono text-slate-500 uppercase block subtext-label">SECURITY VERIFICATION BREAKDOWN</span>
                             <div id="res-breakdown" class="space-y-3 font-mono text-xs"></div>
@@ -243,7 +242,7 @@
                 </div>
             </div>
 
-            <!-- Storage Logs -->
+            <!-- Storage Registers -->
             <div id="storage" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="cyber-glass rounded-2xl p-6 shadow-xl flex flex-col justify-between">
                     <span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest font-bold block subtext-label">PROPORTIONS VECTOR</span>
@@ -280,7 +279,7 @@
                 </div>
             </div>
 
-            <!-- Tools & Quiz -->
+            <!-- Tools & Quiz Sandbox -->
             <div id="tools" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="cyber-glass rounded-2xl p-6 shadow-xl space-y-4">
                     <h4 class="text-base font-bold text-white card-heading flex items-center space-x-2">
@@ -322,8 +321,27 @@
                 </div>
             </div>
 
-            <!-- Footer -->
-            <footer class="pt-10 pb-6 border-t border-slate-800/60 font-mono text-xs space-y-6 theme-border-divider">
+            <!-- Footer with Feedback Section -->
+            <footer class="pt-10 pb-6 border-t border-slate-800/60 font-mono text-xs space-y-8 theme-border-divider">
+                
+                <!-- Feedback Section -->
+                <div class="cyber-glass rounded-2xl p-5 shadow-lg space-y-3">
+                    <div class="flex items-center space-x-2 text-cyan-400 font-bold">
+                        <i class="fa-solid fa-comment-dots"></i>
+                        <span>LEAVE USER FEEDBACK</span>
+                    </div>
+                    <form id="feedback-form" onsubmit="submitFeedback(event)" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <input type="text" id="feedback-name" placeholder="Your Name" required class="bg-[#050811] border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500">
+                        <input type="text" id="feedback-msg" placeholder="Your Feedback or Suggestion..." required class="sm:col-span-2 bg-[#050811] border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500">
+                        <button type="submit" class="sm:col-span-3 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-black rounded-xl hover:opacity-90 transition cursor-pointer text-xs">
+                            SUBMIT FEEDBACK
+                        </button>
+                    </form>
+                    <div id="feedback-success" class="hidden text-emerald-400 text-[11px] font-bold">
+                        ✓ Thank you! Your feedback has been saved locally.
+                    </div>
+                </div>
+
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-slate-400">
                     <div>
                         <div class="text-white font-bold mb-2 flex items-center space-x-2 brand-title">
@@ -346,7 +364,8 @@
                         <div class="text-white font-bold mb-2 card-heading">DEVELOPER CONNECT</div>
                         <div class="flex space-x-3">
                             <a href="https://github.com/CompileWithAbhishek" target="_blank" class="px-3 py-1.5 rounded-lg bg-[#0B1120] border border-slate-800 hover:text-cyan-400 transition inner-box"><i class="fa-brands fa-github mr-1"></i> GitHub</a>
-                            <a href="#" class="px-3 py-1.5 rounded-lg bg-[#0B1120] border border-slate-800 hover:text-cyan-400 transition inner-box"><i class="fa-brands fa-linkedin mr-1"></i> LinkedIn</a>
+                            <!-- Exact Personal LinkedIn Link -->
+                            <a href="https://linkedin.com/in/abisinngh" target="_blank" class="px-3 py-1.5 rounded-lg bg-[#0B1120] border border-slate-800 hover:text-cyan-400 transition inner-box"><i class="fa-brands fa-linkedin mr-1"></i> LinkedIn</a>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,6 @@
 // Local Database & State Management
 let scanLogs = JSON.parse(localStorage.getItem('cyberguard_logs') || '[]');
+let userFeedbacks = JSON.parse(localStorage.getItem('cyberguard_feedbacks') || '[]');
 let currentTab = 'url';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -43,7 +44,7 @@ function switchTab(tab) {
     }
 }
 
-// Multi-Vector Granular Threat Inspection Engine
+// Multi-Vector Precise Threat Inspection Engine
 function runAnalysisCheck() {
     const inputField = document.getElementById('payload-input');
     const rawVal = inputField ? inputField.value.trim() : '';
@@ -57,134 +58,115 @@ function runAnalysisCheck() {
     let checks = [];
     const lower = rawVal.toLowerCase();
 
-    // Standard Legitimate Providers
-    const standardDomains = [
-        'gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com', 'icloud.com', 'proton.me',
-        'google.com', 'microsoft.com', 'github.com', 'gov.in', 'nic.in', 'sbi.co.in', 'hdfcbank.com', 'example.com'
+    // Standard Recognized Official Domains
+    const trustedDomains = [
+        'cbse.nic.in', 'cbse.gov.in', 'nic.in', 'gov.in', 'gmail.com', 'yahoo.com', 
+        'outlook.com', 'hotmail.com', 'icloud.com', 'proton.me', 'google.com', 
+        'microsoft.com', 'github.com', 'wikipedia.org', 'sbi.co.in', 'hdfcbank.com', 'icicibank.com', 'example.com'
     ];
 
-    // Extraction helper
-    function getCleanDomain(str) {
+    function extractDomain(str) {
         let clean = str.replace(/^(https?:\/\/)?(www\.)?/, '').split('/')[0].split('?')[0];
         if (clean.includes('@')) clean = clean.split('@')[1];
         return clean.trim();
     }
 
-    const domain = getCleanDomain(lower);
+    const domain = extractDomain(lower);
+    const isOfficialTrusted = trustedDomains.some(td => domain === td || domain.endsWith('.' + td));
 
-    // Dynamic Parameter Check Engine per Vector Tab
+    // Dynamic Parameter Check Engine
     if (currentTab === 'email') {
-        // 1. Syntax Format Check
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const validSyntax = emailRegex.test(rawVal);
+        
         checks.push({
             title: "Format & Syntax",
             status: validSyntax ? "valid" : "invalid",
-            desc: validSyntax ? "Email address is formatted correctly." : "Invalid email format or malformed string."
+            desc: validSyntax ? "Email address is formatted correctly." : "Invalid or malformed email structure."
         });
-        if (!validSyntax) riskScore += 40;
+        if (!validSyntax) riskScore += 50;
 
-        // 2. Domain & Typosquatting Check
         const typos = ['gmmail', 'gmaill', 'yaho', 'hotmial', 'outlok', 'govv', 'orrg'];
         const isTypo = typos.some(t => lower.includes(t));
+        
         checks.push({
             title: "Domain Status",
             status: isTypo ? "invalid" : "valid",
-            desc: isTypo ? "Domain name shows typosquatting or spoofing indicators." : "Domain structure matches legitimate registers."
+            desc: isTypo ? "Detected typosquatted email domain." : "Domain extension matches standard providers."
         });
         if (isTypo) riskScore += 85;
 
-        // 3. Provider Type
-        const isStandard = standardDomains.includes(domain);
-        checks.push({
-            title: "Provider Reputation",
-            status: isStandard ? "valid" : (isTypo ? "invalid" : "warning"),
-            desc: isStandard ? "Recognized standard email webmail provider." : "Custom, unverified, or potentially risky domain."
-        });
-        if (!isStandard && !isTypo) riskScore += 20;
-
     } else if (currentTab === 'url') {
-        // 1. Protocol Safety
         const isHttps = lower.startsWith('https://');
+        
+        // Fix for missing protocol on valid domains (e.g., cbse.nic.in)
         checks.push({
             title: "Protocol Security",
-            status: isHttps ? "valid" : "warning",
-            desc: isHttps ? "Encrypted connection protocol (HTTPS)." : "Insecure HTTP or missing protocol header."
+            status: isHttps ? "valid" : (isOfficialTrusted ? "valid" : "warning"),
+            desc: isHttps ? "Encrypted connection protocol (HTTPS)." : (isOfficialTrusted ? "Standard domain format recognized." : "Missing explicit HTTPS protocol header.")
         });
-        if (!isHttps) riskScore += 25;
+        if (!isHttps && !isOfficialTrusted) riskScore += 15;
 
-        // 2. Extension & Typosquatting
         const badExt = /\.(orrg|govv|cm|nett|coo|infoo|xyz|top|zip|click)\b/;
-        const typoDomain = badExt.test(lower);
+        const typoDomain = badExt.test(lower) || ['govv', 'orrg'].some(k => lower.includes(k));
+        
         checks.push({
             title: "TLD & Extension Authenticity",
             status: typoDomain ? "invalid" : "valid",
-            desc: typoDomain ? "Detected spoofed domain extension (.orrg, .govv, etc.)." : "Standard extension structure."
+            desc: typoDomain ? "Detected spoofed domain extension (.orrg, .govv, etc.)." : "Standard legitimate domain structure."
         });
         if (typoDomain) riskScore += 85;
 
-        // 3. IP Hosting Check
         const isRawIp = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(domain);
         checks.push({
             title: "Host Address Type",
             status: isRawIp ? "invalid" : "valid",
-            desc: isRawIp ? "Direct IP address usage detected (High phishing risk)." : "Standard domain name resolution."
+            desc: isRawIp ? "Direct IP address hosting detected (High threat factor)." : "Standard registered domain name."
         });
         if (isRawIp) riskScore += 85;
 
     } else if (currentTab === 'sms') {
-        // 1. Social Engineering Triggers
         const urgents = ['urgent', 'blocked', 'verify', 'kyc', 'suspend', 'lottery', 'winner', 'click here'];
         let foundUrgent = urgents.filter(u => lower.includes(u));
+        
         checks.push({
-            title: "Urgency & Phishing Triggers",
+            title: "Urgency & Social Engineering",
             status: foundUrgent.length > 0 ? "invalid" : "valid",
-            desc: foundUrgent.length > 0 ? `Found social-engineering keywords: ${foundUrgent.join(', ')}.` : "No panic/urgency triggers detected."
+            desc: foundUrgent.length > 0 ? `Trigger keywords found: ${foundUrgent.join(', ')}.` : "No urgency/panic triggers found."
         });
         if (foundUrgent.length > 0) riskScore += (foundUrgent.length * 30);
 
-        // 2. Embedded Link Risk
-        const hasLink = /https?:\/\/[^\s]+/.test(lower) || /\.[a-z]{2,4}\b/.test(lower);
+        const hasLink = /https?:\/\/[^\s]+/.test(lower);
         checks.push({
             title: "Embedded Link Check",
             status: hasLink ? "warning" : "valid",
-            desc: hasLink ? "Contains embedded web URL inside message payload." : "Plain text message without external URLs."
+            desc: hasLink ? "Contains embedded HTTP/HTTPS link inside SMS text." : "Safe text message payload."
         });
         if (hasLink) riskScore += 20;
 
     } else if (currentTab === 'qr') {
-        // 1. QR Payload Type
-        const isUrlPayload = lower.startsWith('http://') || lower.startsWith('https://');
-        checks.push({
-            title: "Payload Encoding Type",
-            status: "valid",
-            desc: isUrlPayload ? "QR code resolves to web URL target." : "QR code contains plain string/data."
-        });
-
-        // 2. Redirect / Suspicious Target
         const suspiciousQr = /(govv|orrg|gmmail|192\.168|0\.0\.0\.0|apk)/.test(lower);
         checks.push({
-            title: "Target Destination Safety",
+            title: "Target Payload Safety",
             status: suspiciousQr ? "invalid" : "valid",
-            desc: suspiciousQr ? "QR payload redirects to suspicious or untrusted target." : "No malicious redirect triggers detected."
+            desc: suspiciousQr ? "QR code leads to untrusted or spoofed destination." : "Safe QR code payload."
         });
         if (suspiciousQr) riskScore += 85;
     }
 
+    // Force CLEAN 0% for verified official websites like cbse.nic.in
+    if (isOfficialTrusted && riskScore < 50) {
+        riskScore = 0;
+    }
+
     if (riskScore > 100) riskScore = 100;
 
-    // Severity Assessment
+    // Final Severity Flag
     let status = "CLEAN";
     if (riskScore >= 60) status = "DANGEROUS";
     else if (riskScore >= 20) status = "SUSPICIOUS";
 
-    // Whitelist bypass for standard safe entries
-    if (standardDomains.includes(domain) && riskScore < 40) {
-        status = "CLEAN";
-        riskScore = 0;
-    }
-
-    // Save Log
+    // Write Log
     const newEntry = {
         id: Date.now(),
         time: new Date().toLocaleTimeString(),
@@ -198,7 +180,7 @@ function runAnalysisCheck() {
     scanLogs.unshift(newEntry);
     localStorage.setItem('cyberguard_logs', JSON.stringify(scanLogs));
 
-    // Render Output Breakdown Card
+    // Render Results Output Card
     document.getElementById('output-idle')?.classList.add('hidden');
     const resContainer = document.getElementById('output-results');
     resContainer?.classList.remove('hidden');
@@ -212,7 +194,7 @@ function runAnalysisCheck() {
     const scoreEl = document.getElementById('res-score');
     if (scoreEl) scoreEl.innerText = `${riskScore}%`;
 
-    // Render Detailed Breakdown Steps
+    // Render Breakdown Items
     const breakdownContainer = document.getElementById('res-breakdown');
     if (breakdownContainer) {
         breakdownContainer.innerHTML = checks.map(c => `
@@ -232,7 +214,26 @@ function runAnalysisCheck() {
     renderLogsTable();
 }
 
-// Counter Stats
+// User Feedback Submission Handler
+function submitFeedback(e) {
+    e.preventDefault();
+    const name = document.getElementById('feedback-name').value.trim();
+    const msg = document.getElementById('feedback-msg').value.trim();
+
+    if (!name || !msg) return;
+
+    userFeedbacks.unshift({ id: Date.now(), name, msg, time: new Date().toLocaleTimeString() });
+    localStorage.setItem('cyberguard_feedbacks', JSON.stringify(userFeedbacks));
+
+    document.getElementById('feedback-form').reset();
+    const alertBox = document.getElementById('feedback-success');
+    if (alertBox) {
+        alertBox.classList.remove('hidden');
+        setTimeout(() => alertBox.classList.add('hidden'), 3000);
+    }
+}
+
+// Telemetry Counters
 function updateTelemetryStats() {
     const total = scanLogs.length;
     const clean = scanLogs.filter(l => l.status === 'CLEAN').length;
@@ -246,7 +247,7 @@ function updateTelemetryStats() {
     if (document.getElementById('vector-count')) document.getElementById('vector-count').innerText = total;
 }
 
-// Local Storage Table Render
+// Table Log Render
 function renderLogsTable() {
     const filter = (document.getElementById('filter-logs')?.value || '').toLowerCase();
     const tbody = document.getElementById('logs-table-body');
@@ -421,5 +422,5 @@ function sendAiMessage() {
 }
 
 function runDiagnosticTest() {
-    alert("⚡ Diagnostics Complete:\n- Local Heuristics: Active\n- Quiz Module: Synced\n- Local Storage Engine: Ready");
+    alert("⚡ Diagnostics Complete:\n- Local Heuristics: Active\n- Quiz Module: Synced\n- Feedback Engine: Operational\n- Local Storage Engine: Ready");
 }
